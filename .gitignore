@@ -1,0 +1,33 @@
+# Env — nunca secretos reales
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Node (solo artefactos en raíz — no ignorar vendor/bootstrap/dist)
+node_modules/
+/dist/
+/build/
+.cache/
+*.tsbuildinfo
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+*.swp
+*.swo
+*~
+.vscode/*
+!.vscode/extensions.json
+
+# Logs
+*.log
+npm-debug.log*
+
+# Artefactos locales / deploy
+*.zip
+.deploy/
+
+# Backups editor
+*.bak
