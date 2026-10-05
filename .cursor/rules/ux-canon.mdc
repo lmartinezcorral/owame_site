@@ -1,0 +1,38 @@
+---
+description: Canon UX/UI global — método, heurísticas, accesibilidad y ética de diseño (12 referentes). Aplicar al construir o revisar la landing owame.app (HTML, CSS, JS). Agnóstico de marca; valores visuales en la skill owame-ui; detalle en la skill ux-canon.
+globs:
+  - "html/**/*.{html,css,js}"
+alwaysApply: false
+---
+
+# Canon UX/UI global
+
+Adaptador de marca de este repo: skill `owame-ui` (`Mobility/.cursor/skills/owame-ui/SKILL.md`). Valores visuales (color, fuente, medidas, framework): SOLO de ahí. Si falta un valor o hay dos fuentes en conflicto, detente y pregunta.
+Prioridad: Ley/privacidad + pisos > VoBo del dueño > Marca > Canon > estándares de código.
+Pisos que ningún VoBo anula: AA y teclado; cero patrones oscuros; nada sensible en URL, caché ni logs; el front no decide permisos.
+Detalle, perfiles (landing, producto, dominio sensible) y checklist: skill `ux-canon`.
+
+## Antes de diseñar
+- Problema («X no puede Y, lo que provoca Z») + para quién + métrica + Metas / No-metas / Atajos.
+- Ubica el problema en un plano: estrategia, alcance, estructura, esqueleto, superficie.
+- Entrega demo ejecutable (ruta + ≤5 pasos + qué quedó fuera) y UNA recomendación.
+- Nunca inventes personas, hallazgos, testimonios, cifras ni capturas: sin dato → `[ASK]`.
+
+## Siempre
+- 1 acción primaria por vista, verbo + objeto (`Solicitar acceso anticipado`, no `Enviar`).
+- Nativo / framework del adaptador antes que propio; nunca contenedor genérico clicable.
+- Estados: vacío con CTA, carga, error, éxito, deshabilitado. Probar con contenido extremo.
+- Corregir en el patrón global, no con excepción local.
+- Dónde estoy / a dónde voy / cómo vuelvo; estado filtrable en la URL (IDs, nunca datos personales).
+- Label visible; solo lo imprescindible; nada sensible ni consentimiento prellenado.
+- Validar al enviar (resumen + error por campo con texto e icono); después, al salir del campo.
+- Eco <100 ms; >1 s indicador; >2–3 s progreso + Cancelar. Reversible → Deshacer; irreversible → confirmar.
+
+## Accesibilidad
+- Contraste AA; nunca solo color; foco visible y gestionado tras cambios por JS.
+- Área táctil ≥44×44; zoom 200 %; `prefers-reduced-motion`.
+
+## Landing (perfil por defecto de este repo)
+- UNA CTA primaria repetida en nav, hero, mitad y cierre; formulario mínimo (nombre + contacto + 1 pregunta) con aviso de privacidad visible.
+- Prueba social solo real; rendimiento es UX (medir LCP); cada sección con hipótesis y evento de analítica.
+- Dominio salud: sin claims de NOM, certificación, cifrado ni resultados sin evidencia → skill `ux-canon` / perfil-dominio-sensible.
