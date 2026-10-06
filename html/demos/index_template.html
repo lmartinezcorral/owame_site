@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>owame — wireframe del índice (no es la página final)</title>
+  <style>
+    :root {
+      --canvas: 1440px;
+      --content: 1200px;
+      --gutter: 24px;
+      --cols: 12;
+      --ink: #1a1a1a;
+      --muted: #5c6b6f;
+      --line: #c8c2b4;
+      --paper: #f4f1ea;
+      --box: #d9d4c8;
+      --box-2: #c5c0b4;
+      --cta: #2c4a52;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #e7e2d6;
+      color: var(--ink);
+      font-family: "Segoe UI", system-ui, sans-serif;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    .canvas {
+      width: min(100%, var(--canvas));
+      margin: 0 auto;
+      background: #fff;
+      min-height: 100vh;
+    }
+    .content {
+      width: min(100% - 32px, var(--content));
+      margin: 0 auto;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: var(--gutter);
+    }
+    .span-3 { grid-column: span 3; }
+    .span-4 { grid-column: span 4; }
+    .span-5 { grid-column: span 5; }
+    .span-6 { grid-column: span 6; }
+    .span-7 { grid-column: span 7; }
+    .span-8 { grid-column: span 8; }
+    .span-12 { grid-column: span 12; }
+    .center-8 { grid-column: 3 / span 8; }
+    .center-6 { grid-column: 4 / span 6; }
+    .band {
+      border-bottom: 1px solid var(--line);
+      padding: 16px 0 20px;
+    }
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: .02em;
+    }
+    .box {
+      background: var(--box);
+      border: 1px dashed #8d877c;
+      min-height: 44px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .box strong { font-size: 13px; }
+    .box span, .ph {
+      color: #3d3d3d;
+      font-size: 12px;
+    }
+    .ph {
+      margin: 4px 0 0;
+    }
+    .hero-media { min-height: 360px; background: var(--box-2); }
+    .nav-bar { min-height: 72px; align-items: center; }
+    .cta {
+      background: var(--cta);
+      color: #fff;
+      min-height: 44px;
+      display: grid;
+      place-items: center;
+      font-weight: 600;
+      font-size: 13px;
+    }
+    .cta.ghost {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--ink);
+    }
+    .legend {
+      background: var(--paper);
+      padding: 20px 0 8px;
+    }
+    .legend h1 { font-size: 22px; margin: 0 0 8px; }
+    .legend p { margin: 0 0 8px; max-width: 70ch; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 8px 0 16px; }
+    th, td { text-align: left; border-bottom: 1px solid var(--line); padding: 6px 8px 6px 0; vertical-align: top; }
+    .guides {
+      height: 28px;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: var(--gutter);
+      margin-bottom: 8px;
+    }
+    .guides i {
+      background: rgba(44, 74, 82, .15);
+      font-style: normal;
+      font-size: 11px;
+      text-align: center;
+      line-height: 28px;
+    }
+    @media (max-width: 800px) {
+      .span-3, .span-4, .span-5, .span-6, .span-7, .span-8,
+      .center-8, .center-6 { grid-column: 1 / -1; }
+      .hero-media { min-height: 200px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="canvas">
+    <header class="legend">
+      <div class="content">
+        <h1>Wireframe del índice de owame</h1>
+        <p>Esto no es la página final. Define el esqueleto: cuántos píxeles ocupa cada banda y sobre qué columnas cae. La superficie (Poppins, petróleo, crema, cristal) se aplica después en <code>index.html</code>.</p>
+        <p><strong>Lienzo de referencia:</strong> 1440 px de ancho (frame desktop del brief). <strong>Columna de contenido fija:</strong> 1200 px, centrada. Margen lateral del lienzo: (1440 − 1200) / 2 = <strong>120 px</strong>. En viewports menores el contenido se encoge hasta 800 px y luego cada bloque pasa a una sola columna.</p>
+        <p><strong>Rejilla:</strong> 12 columnas. Hueco entre columnas: 24 px. Ancho de una columna: (1200 − 11 × 24) / 12 = <strong>78 px</strong>. Una pieza “está en la rejilla” cuando su ancho es un múltiplo de ese módulo más los huecos que cruza. El formulario y la tarjeta de cuenta no se estiran a 12 columnas: llevan ancho fijo de 6 y 8 columnas.</p>
+        <div class="guides" aria-hidden="true">
+          <i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>10</i><i>11</i><i>12</i>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Ocupación</th><th>Columnas</th><th>Ancho útil</th><th>Cálculo</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Cuarto</td><td>3</td><td>282 px</td><td>3×78 + 2×24</td></tr>
+            <tr><td>Tercio</td><td>4</td><td>384 px</td><td>4×78 + 3×24</td></tr>
+            <tr><td>Mitad</td><td>6</td><td>588 px</td><td>6×78 + 5×24</td></tr>
+            <tr><td>Siete</td><td>7</td><td>690 px</td><td>7×78 + 6×24</td></tr>
+            <tr><td>Ocho, centrado</td><td>8 (empieza en la 3)</td><td>792 px</td><td>8×78 + 7×24</td></tr>
+            <tr><td>Doce</td><td>12</td><td>1200 px</td><td>ancho de contenido</td></tr>
+          </tbody>
+        </table>
+        <p>Una sola acción primaria en toda la página: <strong>Solicitar acceso</strong>. Iniciar sesión y ver tarifas son acciones secundarias. No hay checkout: el cobro sigue en sandbox.</p>
+      </div>
+    </header>
+
+    <section class="band" id="nav" aria-label="Navegación">
+      <div class="content">
+        <p class="meta"><span>01 · Nav</span><span>alto fijo 72 px · ancho de lienzo 1440 · contenido 1200</span></p>
+        <div class="grid nav-bar">
+          <div class="box span-3"><strong>Marca</strong><span>col 1–3 · 282×40</span></div>
+          <div class="box span-6"><strong>Enlaces</strong><span>col 4–9 · 588 px · Producto · Precios · Preguntas</span></div>
+          <div class="cta span-3">Solicitar acceso</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="hero" aria-label="Hero">
+      <div class="content">
+        <p class="meta"><span>02 · Hero</span><span>alto 560 px · no usa 100vh</span></p>
+        <div class="grid">
+          <div class="box span-6" style="min-height:480px">
+            <strong>Texto · col 1–6 · 588×480</strong>
+            <p class="ph">Eyebrow 1 línea</p>
+            <p class="ph">H1 resultado para quien atiende, no el nombre del módulo. Máximo ~2 líneas a 48–56 px.</p>
+            <p class="ph">Subtítulo: agenda, expediente y cobro en un solo lugar. Sin cifra de ahorro.</p>
+            <p class="ph">CTA primario 44 px de alto. Secundario: Iniciar sesión, mismo renglón, estilo ghost.</p>
+          </div>
+          <div class="box hero-media span-6">
+            <strong>Medio · col 7–12 · 588×360</strong>
+            <span>Hueco de captura real o [ASK]. No stock de bata ni mockup inventado.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="cuenta" aria-label="Ya tienes cuenta">
+      <div class="content">
+        <p class="meta"><span>03 · ¿Ya tienes cuenta?</span><span>alto 220 px · tarjeta fija, no a 12 columnas</span></p>
+        <div class="grid">
+          <div class="box center-8" style="min-height:140px">
+            <strong>Tarjeta · col 3–10 · 792×140</strong>
+            <p class="ph">H2: ¿Ya tienes cuenta en owame?</p>
+            <p class="ph">Camino feliz: cliente regular e quien acaba de contratar entran por el mismo inicio de sesión.</p>
+            <p class="ph">Párrafo + enlace secundario a la demo. Otro enlace, aún más quieto, hacia tarifas. Esta tarjeta no vende el plan.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="valor" aria-label="Propuesta de valor">
+      <div class="content">
+        <p class="meta"><span>04 · Más que un expediente</span><span>alto 560 px · imagen 7 col + texto 5 col</span></p>
+        <div class="grid">
+          <div class="box span-7" style="min-height:420px">
+            <strong>Bloque visual · col 1–7 · 690×420</strong>
+            <span>Equivalente al 830×525 del referente, recortado a esta rejilla. [ASK] captura.</span>
+          </div>
+          <div class="box span-5" style="min-height:420px">
+            <strong>Copy · col 8–12 · 486×420</strong>
+            <p class="ph">5×78 + 4×24 = 486 px</p>
+            <p class="ph">H2: owame, más que un expediente clínico electrónico.</p>
+            <p class="ph">Párrafo parafraseado: práctica ambulatoria, un solo lugar. Sin hospital, farmacia ni NOM.</p>
+            <p class="ph">CTA primario otra vez.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="highlights" aria-label="Highlights">
+      <div class="content">
+        <p class="meta"><span>05 · Highlights</span><span>alto 200 px · 4 cuartos</span></p>
+        <div class="grid">
+          <div class="box span-3" style="min-height:120px"><strong>1 · 282×120</strong><span>Administrar el consultorio</span></div>
+          <div class="box span-3" style="min-height:120px"><strong>2 · 282×120</strong><span>Servicio al paciente</span></div>
+          <div class="box span-3" style="min-height:120px"><strong>3 · 282×120</strong><span>Control del día</span></div>
+          <div class="box span-3" style="min-height:120px"><strong>4 · 282×120</strong><span>Agenda, ficha y consulta juntas</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="distingue" aria-label="Diferencia">
+      <div class="content">
+        <p class="meta"><span>06 · En qué se distingue</span><span>alto 320 px · 3 tercios</span></p>
+        <div class="grid">
+          <div class="box span-4" style="min-height:200px"><strong>Directorio · 384×200</strong><span>La cita pública no opera el día.</span></div>
+          <div class="box span-4" style="min-height:200px"><strong>Expediente suelto · 384×200</strong><span>La nota sin el cobro.</span></div>
+          <div class="box span-4" style="min-height:200px"><strong>Hoja de cálculo · 384×200</strong><span>WhatsApp, Excel y libreta.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="funciones" aria-label="Funciones">
+      <div class="content">
+        <p class="meta"><span>07 · Lo que ya hace</span><span>alto 360 px · 4 cuartos × 2 filas</span></p>
+        <div class="grid">
+          <div class="box span-3"><strong>Expediente</strong><span>282×88</span></div>
+          <div class="box span-3"><strong>Agenda</strong><span>282×88</span></div>
+          <div class="box span-3"><strong>Cobro y caja</strong><span>282×88</span></div>
+          <div class="box span-3"><strong>Portal paciente</strong><span>282×88</span></div>
+          <div class="box span-3"><strong>Documentos</strong><span>282×88</span></div>
+          <div class="box span-3"><strong>Roles</strong><span>282×88</span></div>
+          <div class="box span-3"><strong>Buscar paciente</strong><span>282×88</span></div>
+          <div class="box span-3"><strong>Correo y WhatsApp</strong><span>282×88</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="camino" aria-label="En camino">
+      <div class="content">
+        <p class="meta"><span>08 · En camino</span><span>alto 160 px · una sola banda, voz baja</span></p>
+        <div class="grid">
+          <div class="box span-12" style="min-height:88px">
+            <strong>col 1–12 · 1200×88</strong>
+            <span>App, CFDI, lista de espera, Google Calendar, aseguradoras, dictado, SMS, interconsulta, catálogo de medicamentos. No como módulos a la venta.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="precios" aria-label="Tarifas">
+      <div class="content">
+        <p class="meta"><span>09 · Tarifas de referencia</span><span>alto 420 px · 3 tercios</span></p>
+        <div class="grid">
+          <div class="box span-4" style="min-height:280px"><strong>Starter · 384×280</strong><span>Monto de referencia. Botón secundario: Hablar de este plan.</span></div>
+          <div class="box span-4" style="min-height:280px"><strong>Profesional · 384×280</strong><span>Misma acción. Sin cargo.</span></div>
+          <div class="box span-4" style="min-height:280px"><strong>Clínica · 384×280</strong><span>Misma acción. Sin cargo.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="acceso" aria-label="Formulario">
+      <div class="content">
+        <p class="meta"><span>10 · Solicitar acceso</span><span>alto 480 px · formulario a 6 columnas, centrado</span></p>
+        <div class="grid">
+          <div class="box center-6" style="min-height:360px">
+            <strong>Formulario · col 4–9 · 588×360</strong>
+            <p class="ph">Nombre, contacto y una pregunta. Aviso de privacidad visible. Sin casilla comercial marcada.</p>
+            <p class="ph">CTA primario: Solicitar acceso. Debajo: qué pasa después del envío.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="faq" aria-label="Preguntas">
+      <div class="content">
+        <p class="meta"><span>11 · Preguntas</span><span>alto 400 px · 8 columnas centradas</span></p>
+        <div class="grid">
+          <div class="box center-8" style="min-height:280px">
+            <strong>Acordeón · col 3–10 · 792×280</strong>
+            <span>Demo, datos, cancelación, diferencia, significado del nombre. Sin claim nuevo de cifrado o NOM.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="cierre" aria-label="Cierre">
+      <div class="content">
+        <p class="meta"><span>12 · Cierre</span><span>alto 240 px · texto a 8 columnas</span></p>
+        <div class="grid">
+          <div class="box center-8" style="min-height:140px">
+            <strong>Cierre · 792×140</strong>
+            <span>Una frase de valor + Solicitar acceso + qué ocurre al enviar.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="band" id="pie" aria-label="Pie">
+      <div class="content">
+        <p class="meta"><span>13 · Pie</span><span>alto 160 px · 3 + 6 + 3</span></p>
+        <div class="grid">
+          <div class="box span-3"><strong>Marca</strong><span>282×72 · owame by newachi</span></div>
+          <div class="box span-6"><strong>Contacto</strong><span>588×72</span></div>
+          <div class="box span-3"><strong>Entrar</strong><span>282×72 · inicio de sesión, secundario</span></div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

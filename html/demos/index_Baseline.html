@@ -1,0 +1,1548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Baseline — Tennis Club &amp; Academy</title>
+<meta name="description" content="Baseline is a members' tennis club and academy where focused coaching meets championship courts." />
+<meta name="theme-color" content="#0f2f63" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --background:#ffffff;
+  --foreground:#0a0a0a;
+  --brand:#2563c9;
+  --brand-deep:#0f2f63;
+  --brand-light:#5790e6;
+  --accent-teal:#0b6e97;
+  --surface:#f4f4f4;
+  --surface-card:#ffffff;
+  --ink:#0a0a0a;
+  --ink-soft:#717784;
+  --ghost:#d7dae1;
+  --hairline:#e6e8ec;
+  --on-brand:#ffffff;
+  --radius-card:1.5rem;
+  --radius-card-lg:2rem;
+  --radius-pill:62.5rem;
+  --ease-expo:cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-quart:cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+* { box-sizing:border-box; margin:0; padding:0 }
+[hidden] { display:none !important }
+html { font-size:16px; scroll-behavior:auto }
+body {
+  min-height:100vh;
+  background:var(--background);
+  color:var(--foreground);
+  font-family:"Onest", system-ui, sans-serif;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+}
+img { display:block; max-width:100% }
+button { font:inherit; color:inherit; background:none; border:none; cursor:pointer }
+a { color:inherit; text-decoration:none }
+ul { list-style:none }
+input, textarea { font:inherit; color:inherit }
+:focus-visible { outline:2px solid var(--brand-light); outline-offset:2px }
+.sr-only {
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}
+html.lenis, html.lenis body { height:auto }
+.lenis.lenis-smooth { scroll-behavior:auto !important }
+.lenis.lenis-stopped { overflow:hidden }
+@media (max-width:1920px) { html { font-size:0.833333vw } }
+@media (max-width:1440px) { html { font-size:1.111111vw } }
+@media (max-width:1024px) { html { font-size:1.5625vw } }
+@media (max-width:640px) { html { font-size:4.444444vw } }
+
+main { width:100%; overflow-x:clip; padding:0.5rem }
+@media (min-width:640px) { main { padding:0.75rem } }
+
+.clip { display:inline-block; overflow:hidden; vertical-align:bottom; padding-bottom:0.14em; margin-bottom:-0.14em }
+.clip.ghost { padding-bottom:0.12em; margin-bottom:-0.12em }
+.clip-inner { display:block; transform:translateY(115%); opacity:0 }
+.stack .clip { display:block }
+.wordfade { opacity:0 }
+.wordfade .w { display:inline-block; transform:translateY(18px); opacity:0 }
+.rise { opacity:0 }
+
+.eyebrow {
+  display:inline-flex; align-items:center; gap:0.5rem;
+  font-size:0.75rem; font-weight:500; text-transform:uppercase; letter-spacing:0.22em;
+}
+.eyebrow i { width:0.375rem; height:0.375rem; border-radius:var(--radius-pill); display:block }
+.eyebrow.dark { color:var(--ink-soft) }
+.eyebrow.dark i { background:var(--brand) }
+.eyebrow.light { color:rgba(255,255,255,.7) }
+.eyebrow.light i { background:var(--brand-light) }
+
+.display { font-size:3rem; font-weight:500; line-height:0.95; letter-spacing:-0.02em; margin-top:1rem }
+.display.xl { font-size:3.75rem; line-height:0.92 }
+
+.pill {
+  display:inline-flex; align-items:center; gap:0.5rem;
+  border-radius:var(--radius-pill); padding:0.875rem 1.75rem;
+  font-size:0.875rem; font-weight:500; text-transform:uppercase; letter-spacing:0.025em;
+}
+.pill svg { width:1rem; height:1rem }
+.pill.light { background:#fff; color:var(--brand-deep) }
+.pill.solid { background:var(--ink); color:#fff }
+.pill.outline { border:1px solid currentColor; color:var(--ink); background:transparent }
+@media (hover:hover) and (min-width:769px) {
+  .pill.light:hover { background:var(--brand-light); color:#fff }
+  .pill.solid:hover { background:var(--brand-deep) }
+  .pill.outline:hover { background:var(--ink); color:#fff }
+}
+button:disabled { opacity:0.55; cursor:default }
+
+.arrow-btn {
+  width:3rem; height:3rem; border-radius:var(--radius-pill);
+  display:grid; place-items:center; border:1px solid transparent; flex:none;
+}
+@media (min-width:640px) { .arrow-btn { width:3.5rem; height:3.5rem } }
+.arrow-btn svg { width:1.25rem; height:1.25rem }
+.arrow-btn.outline { border-color:var(--hairline); color:var(--ink); background:transparent }
+.arrow-btn.solid { background:var(--ink); border-color:var(--ink); color:#fff }
+@media (hover:hover) and (min-width:769px) {
+  .arrow-btn.outline:hover { border-color:var(--ink) }
+  .arrow-btn.solid:hover { background:var(--brand-deep); border-color:var(--brand-deep) }
+}
+
+.dots { display:flex; align-items:center; gap:0.5rem }
+.dots button { padding:0.375rem; line-height:0 }
+.dots i {
+  display:block; height:0.375rem; width:0.375rem; border-radius:var(--radius-pill);
+  background:var(--ghost); transition:width .35s var(--ease-expo);
+}
+.dots.light i { background:rgba(255,255,255,.4) }
+.dots button.on i { width:1.25rem; background:var(--ink) }
+.dots.light button.on i { background:#fff }
+
+.ico { display:block; overflow:visible }
+.glass {
+  border:1px solid rgba(255,255,255,.15);
+  background:rgba(255,255,255,.1);
+  border-radius:var(--radius-card);
+  box-shadow:0 12px 40px rgba(15,47,99,.2);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+}
+
+#loader {
+  position:fixed; inset:0; z-index:200;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2rem;
+  background:var(--brand-deep); color:#fff;
+}
+.loader-brand { display:flex; align-items:center; gap:0.5rem; font-size:1.5rem; font-weight:500; text-transform:uppercase; letter-spacing:0.2em; opacity:0 }
+.loader-brand .ico { width:1.75rem; height:1.75rem }
+.loader-track { width:10rem; height:1px; border-radius:var(--radius-pill); background:rgba(255,255,255,.2); overflow:hidden }
+#loaderFill { display:block; height:100%; width:100%; background:#fff; transform:scaleX(0); transform-origin:left center }
+
+.hero {
+  position:relative; isolation:isolate; overflow:hidden;
+  display:flex; flex-direction:column;
+  height:calc(100svh - 1rem); min-height:36rem;
+  border-radius:var(--radius-card-lg);
+  background:var(--brand-deep); color:#fff;
+}
+@media (min-width:640px) { .hero { height:calc(100svh - 1.5rem) } }
+.plate { position:absolute; inset:0; z-index:-10 }
+.plate-shift { position:absolute; left:0; right:0; top:-16%; width:100%; height:132% }
+.plate-shift img { width:100%; height:100%; max-width:none; object-fit:cover }
+.hero-shade {
+  position:absolute; inset:0; z-index:0; pointer-events:none;
+  background:linear-gradient(to bottom, rgba(15,47,99,.65), rgba(15,47,99,.35), rgba(15,47,99,.75));
+}
+.site-header {
+  position:relative; z-index:2;
+  display:flex; align-items:center;
+  padding:1.5rem 1.5rem 0;
+  font-size:0.75rem;
+}
+@media (min-width:640px) { .site-header { padding:2rem 2.5rem 0 } }
+.nav-left { display:none; flex:1; align-items:center; gap:2rem }
+@media (min-width:1024px) { .nav-left { display:flex } }
+.nav-left a { color:rgba(255,255,255,.9) }
+.brand {
+  flex:1; display:flex; align-items:center; gap:0.5rem;
+  font-size:1rem; font-weight:500; text-transform:uppercase; letter-spacing:0.2em;
+}
+.brand .ico, .lockup .ico { width:1.25rem; height:1.25rem }
+@media (min-width:1024px) { .brand { justify-content:center } }
+.lockup { display:flex; align-items:center; gap:0.5rem; font-size:1rem; font-weight:500; text-transform:uppercase; letter-spacing:0.2em }
+.arrow-btn svg.flip { transform:scaleX(-1) }
+.header-right { flex:1; display:flex; justify-content:flex-end; align-items:center; gap:1rem }
+@media (min-width:640px) { .header-right { gap:1.25rem } }
+.book-link {
+  display:none; text-transform:uppercase; letter-spacing:0.025em; color:#fff;
+}
+@media (min-width:640px) { .book-link { display:inline } }
+.burger {
+  width:2.5rem; height:2.5rem; border-radius:var(--radius-pill);
+  background:rgba(255,255,255,.15);
+  backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  display:grid; place-items:center;
+}
+.burger-bars { display:flex; flex-direction:column; gap:5px }
+.burger-bars i { display:block; width:1rem; height:1px; background:#fff }
+@media (hover:hover) and (min-width:769px) {
+  .nav-left a:hover { color:#fff }
+  .book-link:hover { text-decoration:underline }
+  .burger:hover { background:rgba(255,255,255,.25) }
+}
+
+.hero-title {
+  position:relative; z-index:1;
+  padding:1rem 1.5rem 0;
+  font-size:12.5vw; font-weight:500; text-transform:uppercase;
+  line-height:0.85; letter-spacing:-0.02em; white-space:nowrap;
+}
+@media (min-width:640px) { .hero-title { padding-left:2.5rem; padding-right:2.5rem } }
+.hero-title .clip { margin-right:0.22em }
+.hero-title .clip:last-child { margin-right:0 }
+
+.hero-bottom {
+  position:relative; z-index:1;
+  margin-top:auto;
+  display:flex; flex-direction:column; gap:1.5rem;
+  padding:0 1.5rem 2rem;
+}
+@media (min-width:640px) {
+  .hero-bottom { flex-direction:row; justify-content:space-between; align-items:flex-end; padding:0 2.5rem 2.5rem }
+}
+.tagline {
+  flex:none;
+  font-size:2.4rem; font-weight:500; text-transform:uppercase;
+  line-height:0.95; letter-spacing:-0.02em; color:rgba(255,255,255,.85);
+}
+.hero-side { display:flex; align-items:flex-end; gap:1rem; flex:none }
+.coll { display:none }
+@media (min-width:768px) {
+  .coll { display:flex; flex-direction:column; width:16rem; gap:0.75rem }
+}
+.coll-stage { position:relative }
+.coll-card { display:flex; align-items:center; gap:0.75rem; padding:0.75rem }
+.coll-card img { width:3.5rem; height:3.5rem; object-fit:cover; border-radius:0.75rem; flex:none }
+.coll-copy { display:flex; flex-direction:column; gap:0.15rem; min-width:0 }
+.coll-copy .brand { font-size:0.7rem; font-weight:500; text-transform:uppercase; letter-spacing:0.025em }
+.coll-copy .ttl { font-size:0.7rem; text-transform:uppercase; opacity:.8 }
+.coll-copy .cta { font-size:0.65rem; text-decoration:underline; text-underline-offset:2px }
+
+.member { width:100%; max-width:20rem; display:flex; gap:0.75rem; align-items:stretch; padding:0.75rem }
+@media (min-width:640px) { .member { width:15rem; max-width:15rem } }
+.member-copy { flex:1; min-width:0; display:flex; flex-direction:column; justify-content:space-between }
+.member-val { font-size:1.875rem; font-weight:500; line-height:1 }
+.avatars { display:flex }
+.avatars span {
+  width:1.25rem; height:1.25rem; border-radius:var(--radius-pill);
+  border:1px solid rgba(15,47,99,.4); margin-left:-0.5rem;
+}
+.avatars span:first-child { margin-left:0 }
+.member-cap { font-size:0.65rem; opacity:.8; margin-top:0.35rem }
+.member img { width:4rem; aspect-ratio:3/4; height:auto; object-fit:cover; border-radius:0.75rem; flex:none }
+
+.trust { position:relative; isolation:isolate; overflow:hidden; background:var(--background); padding:4rem 1.5rem }
+@media (min-width:640px) { .trust { padding:5rem 2.5rem } }
+.trust-top {
+  position:relative; z-index:20;
+  display:flex; flex-direction:column; gap:1.5rem;
+}
+@media (min-width:640px) { .trust-top { flex-direction:row; align-items:center; justify-content:space-between } }
+.pct {
+  width:7rem; height:7rem; border-radius:var(--radius-pill); background:var(--surface);
+  display:grid; place-items:center; text-align:center; flex:none;
+}
+@media (min-width:640px) { .pct { width:8rem; height:8rem } }
+.pct strong { display:block; font-size:1.5rem; font-weight:500; line-height:1 }
+.pct span { display:block; margin-top:0.3rem; font-size:0.6rem; color:var(--ink-soft); max-width:7em }
+.badge-card {
+  display:flex; align-items:center; gap:1rem;
+  max-width:28rem; width:100%;
+  border-radius:var(--radius-card); background:var(--surface); padding:1.25rem;
+}
+@media (min-width:640px) { .badge-card { gap:1.25rem; padding:1.5rem } }
+.chip { border-radius:0.75rem; background:var(--background); padding:0.5rem 1rem; font-size:1.25rem; font-weight:500; flex:none }
+.badge-title { font-size:1.125rem; font-weight:500 }
+.badge-card p { margin-top:0.35rem; font-size:0.75rem; color:var(--ink-soft); line-height:1.6 }
+
+.ghost-title {
+  position:relative; z-index:0; pointer-events:none; user-select:none;
+  width:100%; max-width:88rem; margin:3rem auto 0;
+  font-size:8.2vw; font-weight:500; text-transform:uppercase;
+  line-height:1.02; letter-spacing:-0.02em;
+}
+.grow { display:flex; justify-content:space-between; gap:1rem }
+.gw { color:var(--ghost); display:block }
+.gw.ink { color:var(--ink) }
+
+.coach-pos { position:relative; z-index:10; width:13rem; margin:1.5rem auto 0 }
+@media (min-width:640px) {
+  .coach-pos { position:absolute; left:50%; top:50%; width:16rem; margin:0; transform:translate(-50%, -50%) }
+}
+.coach-frame {
+  position:relative; aspect-ratio:3/4; border-radius:var(--radius-card);
+  overflow:hidden; background:var(--brand); transform:rotate(6deg);
+}
+.coach-frame img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover }
+.coach-frame img:not([src]) { visibility:hidden }
+.coach-cap {
+  position:absolute; left:0.75rem; right:0.75rem; bottom:0.75rem; z-index:2;
+  border-radius:0.75rem; background:rgba(15,47,99,.4); color:#fff;
+  backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  padding:0.5rem 0.75rem;
+}
+.coach-cap strong { display:block; font-size:0.875rem; font-weight:500 }
+.coach-cap span { display:block; font-size:0.65rem; opacity:.8 }
+
+.trust-controls {
+  position:relative; z-index:20;
+  display:flex; align-items:center; justify-content:space-between;
+  margin-top:3rem;
+}
+@media (min-width:640px) { .trust-controls { margin-top:6rem } }
+
+.programs-sec { position:relative; z-index:0; background:var(--surface); padding:6rem 1.5rem }
+@media (min-width:640px) { .programs-sec { padding-left:2.5rem; padding-right:2.5rem } }
+.programs { margin-top:3.5rem }
+.pro-link {
+  display:flex; align-items:center; gap:1.5rem;
+  padding:1.75rem 0; border-top:1px solid var(--hairline); color:var(--ink);
+}
+.programs li:last-child .pro-link { border-bottom:1px solid var(--hairline) }
+.pro-link:focus-visible { background:var(--background) }
+.pro-num { width:2.5rem; flex:none; font-size:0.875rem; font-weight:500; color:var(--ink-soft) }
+.pro-meta { flex:1; min-width:0; display:flex; flex-direction:column; gap:0.25rem }
+.pro-name { font-size:1.5rem; font-weight:500; letter-spacing:-0.02em }
+@media (min-width:640px) { .pro-name { font-size:1.875rem } }
+.pro-desc { font-size:0.875rem; color:var(--ink-soft) }
+.pro-arrow {
+  width:2.75rem; height:2.75rem; border-radius:var(--radius-pill);
+  border:1px solid var(--hairline); display:grid; place-items:center; flex:none;
+}
+.pro-arrow svg { width:1.25rem; height:1.25rem }
+
+.facilities {
+  position:relative; z-index:1;
+  background:var(--background);
+  border-radius:var(--radius-card-lg);
+  margin-top:-2.5rem;
+  padding:4rem 1.5rem 5rem;
+}
+@media (min-width:640px) { .facilities { padding-left:2.5rem; padding-right:2.5rem } }
+.fac-grid { display:grid; align-items:end; gap:2.5rem }
+@media (min-width:768px) { .fac-grid { grid-template-columns:1fr 1fr } }
+.fac-intro { max-width:24rem }
+.fac-icon { width:4rem; height:4rem; border-radius:var(--radius-card); object-fit:cover }
+.fac-body { margin-top:1.5rem; max-width:20rem; font-size:0.875rem; color:var(--ink-soft); line-height:1.6 }
+.courts { display:flex; align-items:flex-end; gap:1.25rem }
+.court { flex:1; min-width:0 }
+.court:nth-child(2) { margin-bottom:2rem }
+.court-media { position:relative; aspect-ratio:3/4; border-radius:var(--radius-card); overflow:hidden; background:var(--surface) }
+.court-media img { width:100%; height:100%; object-fit:cover }
+.court-cap {
+  position:absolute; left:0.75rem; right:0.75rem; bottom:0.75rem;
+  border-radius:0.75rem; color:#fff; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  padding:0.75rem 1rem;
+}
+.court-cap.clay { background:rgba(15,47,99,.4) }
+.court-cap.blue { background:rgba(11,110,151,.55) }
+.court-cap strong { display:block; font-size:0.875rem; font-weight:500 }
+.court-cap span { display:block; font-size:0.65rem; opacity:.85; margin-top:0.15rem }
+
+.stats {
+  margin-top:0.75rem;
+  border-radius:var(--radius-card-lg);
+  background:var(--brand-deep); color:#fff;
+  padding:5rem 1.5rem;
+}
+@media (min-width:640px) { .stats { padding-left:2.5rem; padding-right:2.5rem } }
+.stats-grid { margin-top:4rem; display:grid; grid-template-columns:1fr 1fr; column-gap:2rem; row-gap:3rem }
+@media (min-width:1024px) { .stats-grid { grid-template-columns:repeat(4, 1fr) } }
+.stat { border-top:1px solid rgba(255,255,255,.2); padding-top:1.25rem }
+.stat dd { margin:0 }
+.stat-val { display:block; font-size:3.75rem; font-weight:500; letter-spacing:-0.02em; line-height:0.95 }
+@media (min-width:640px) { .stat-val { font-size:4.5rem } }
+.stat-lbl { display:block; margin-top:0.75rem; font-size:0.875rem; color:rgba(255,255,255,.65) }
+
+.testimonials { background:var(--background); padding:5rem 1.5rem }
+@media (min-width:640px) { .testimonials { padding:6rem 2.5rem } }
+.t-grid { margin-top:3.5rem; display:grid; gap:1.25rem }
+@media (min-width:768px) { .t-grid { grid-template-columns:repeat(3, 1fr) } }
+.t-grid > li { display:flex }
+.t-card {
+  flex:1; display:flex; flex-direction:column; justify-content:space-between;
+  height:100%; border-radius:var(--radius-card); background:var(--surface); padding:1.75rem;
+}
+.q { font-size:2.25rem; line-height:1; color:var(--brand) }
+.t-card blockquote { margin-top:1rem; font-size:1.125rem; line-height:1.6; color:var(--ink) }
+.t-card figcaption { margin-top:1.5rem; padding-top:1rem; border-top:1px solid var(--hairline) }
+.t-card figcaption strong { display:block; font-weight:500 }
+.t-card figcaption span { display:block; margin-top:0.15rem; font-size:0.875rem; color:var(--ink-soft) }
+
+.footer {
+  margin-top:0.75rem;
+  border-radius:var(--radius-card-lg);
+  background:var(--brand-deep); color:#fff;
+  padding:3.5rem 1.5rem;
+}
+@media (min-width:640px) { .footer { padding:4rem 2.5rem } }
+.cta-band {
+  display:flex; flex-direction:column; gap:1.5rem;
+  border-bottom:1px solid rgba(255,255,255,.15); padding-bottom:3.5rem;
+}
+@media (min-width:640px) { .cta-band { flex-direction:row; align-items:flex-end; justify-content:space-between } }
+.foot-grid { display:grid; gap:2.5rem; padding-block:3.5rem }
+@media (min-width:768px) { .foot-grid { grid-template-columns:1.4fr 1fr 1fr 1fr } }
+.foot-brand { max-width:20rem }
+.foot-logo { display:flex; align-items:center; gap:0.5rem; font-size:1.125rem; font-weight:500; text-transform:uppercase; letter-spacing:0.2em }
+.foot-logo .ico { width:1.25rem; height:1.25rem }
+.foot-brand p { margin-top:1rem; font-size:0.875rem; color:rgba(255,255,255,.65) }
+.foot-brand address { margin-top:1.5rem; font-style:normal; font-size:0.875rem; color:rgba(255,255,255,.8); display:flex; flex-direction:column; gap:0.35rem }
+.foot-brand address .muted { color:rgba(255,255,255,.55) }
+.foot-grid h3 { font-size:0.75rem; font-weight:500; text-transform:uppercase; letter-spacing:0.2em; color:rgba(255,255,255,.5) }
+.foot-grid ul { margin-top:1rem; display:flex; flex-direction:column; gap:0.75rem; font-size:0.875rem; color:rgba(255,255,255,.8) }
+.foot-bottom {
+  display:flex; flex-direction:column; align-items:center; gap:1rem;
+  border-top:1px solid rgba(255,255,255,.15); padding-top:2rem;
+  font-size:0.875rem; color:rgba(255,255,255,.6);
+}
+@media (min-width:640px) { .foot-bottom { flex-direction:row; justify-content:space-between } }
+.foot-bottom nav { display:flex; gap:1.25rem }
+@media (hover:hover) and (min-width:769px) {
+  .foot-grid a:hover, .foot-bottom a:hover, .foot-brand a:hover { color:#fff }
+}
+
+.menu { position:fixed; inset:0; z-index:70; pointer-events:none; padding:0.5rem }
+@media (min-width:640px) { .menu { padding:0.75rem } }
+.menu.open { pointer-events:auto }
+.menu-back { position:absolute; inset:0; background:var(--brand-deep); opacity:0 }
+.menu-panel {
+  position:relative; z-index:1; height:100%;
+  display:flex; flex-direction:column;
+  padding:1.5rem; color:#fff; opacity:0;
+}
+@media (min-width:640px) { .menu-panel { padding:2rem 2.5rem } }
+.menu-top { display:flex; align-items:center; justify-content:space-between }
+.menu-nav { flex:1; display:flex; flex-direction:column; justify-content:center; gap:0.5rem }
+.menu-nav a { display:block; font-size:3rem; font-weight:500; letter-spacing:-0.02em; line-height:1.05 }
+@media (min-width:640px) { .menu-nav a { font-size:4.5rem } }
+@media (hover:hover) and (min-width:769px) { .menu-nav a:hover { color:var(--brand-light) } }
+.menu-bottom {
+  display:flex; flex-direction:column; gap:1.25rem;
+  border-top:1px solid rgba(255,255,255,.15); padding-top:2rem;
+}
+@media (min-width:640px) { .menu-bottom { flex-direction:row; align-items:center; justify-content:space-between } }
+.menu-social { display:flex; gap:1.25rem; font-size:0.875rem; color:rgba(255,255,255,.7) }
+@media (hover:hover) and (min-width:769px) { .menu-social a:hover { color:#fff } }
+.icon-btn {
+  width:2.5rem; height:2.5rem; border-radius:var(--radius-pill);
+  display:grid; place-items:center; flex:none;
+}
+.icon-btn svg { width:1.1rem; height:1.1rem }
+.icon-btn.soft { background:var(--surface); color:var(--ink) }
+.icon-btn.ghost { background:rgba(255,255,255,.15); color:#fff }
+@media (hover:hover) and (min-width:769px) {
+  .icon-btn.soft:hover { background:var(--hairline) }
+  .icon-btn.ghost:hover { background:rgba(255,255,255,.25) }
+}
+
+.overlay {
+  position:fixed; inset:0; z-index:90;
+  display:flex; align-items:flex-end; justify-content:center;
+  padding:0.75rem; pointer-events:none;
+}
+@media (min-width:640px) { .overlay { align-items:center; padding:1.5rem } }
+.overlay.open { pointer-events:auto }
+.overlay .backdrop { position:absolute; inset:0; background:rgba(15,47,99,.4); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); opacity:0 }
+.modal-panel {
+  position:relative; z-index:1; width:100%;
+  max-height:92svh; overflow-y:auto;
+  border-radius:var(--radius-card-lg); background:var(--surface-card); color:var(--ink);
+  padding:1.5rem;
+  box-shadow:0 30px 80px rgba(15,47,99,.35);
+  opacity:0;
+}
+@media (min-width:640px) { .modal-panel { max-width:32rem; padding:2rem } }
+.modal-head { display:flex; align-items:flex-start; justify-content:space-between; gap:1rem }
+.modal-title { font-size:2.25rem; font-weight:500; line-height:0.95; letter-spacing:-0.02em; margin-top:0.75rem }
+@media (min-width:640px) { .modal-title { font-size:3rem } }
+.visit-form { margin-top:1.75rem; display:flex; flex-direction:column; gap:1rem }
+.field { display:flex; flex-direction:column; gap:0.4rem }
+.field span { font-size:0.75rem; font-weight:500; text-transform:uppercase; letter-spacing:0.18em; color:var(--ink-soft) }
+.field input, .field textarea {
+  width:100%; border-radius:0.75rem; border:1px solid var(--hairline);
+  background:var(--background); padding:0.75rem 1rem; font-size:0.875rem; color:var(--ink);
+}
+.field textarea { resize:vertical; min-height:6.5rem }
+.field input:focus, .field textarea:focus { outline:none; border-color:var(--brand-light); box-shadow:0 0 0 2px rgba(87,144,230,.35) }
+::placeholder { color:var(--ink-soft) }
+.success { margin-top:2rem; border-radius:var(--radius-card); background:var(--surface); padding:1.5rem; text-align:center }
+.check {
+  width:3rem; height:3rem; margin:0 auto; border-radius:var(--radius-pill);
+  background:var(--brand); color:#fff; display:grid; place-items:center;
+}
+.check svg { width:1.35rem; height:1.35rem }
+.success h3 { margin-top:0.75rem; font-size:1.125rem; font-weight:500 }
+.success p { margin-top:0.4rem; font-size:0.875rem; color:var(--ink-soft); line-height:1.5 }
+.success .pill { margin-top:1.25rem }
+
+@media (prefers-reduced-motion:reduce) {
+  .clip-inner, .wordfade .w { transform:none !important; opacity:1 !important }
+  .wordfade, .rise, .loader-brand { opacity:1 !important; transform:none !important }
+}
+</style>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0" aria-hidden="true">
+  <symbol id="i-ball" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    <path d="M4.8 5.6A9 9 0 0 0 4.8 18.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="M19.2 5.6a9 9 0 0 1 0 12.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24">
+    <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="i-x" viewBox="0 0 24 24">
+    <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="i-check" viewBox="0 0 24 24">
+    <path d="M5 13l4 4L19 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+</svg>
+
+<main>
+  <section class="hero" id="top">
+    <div class="plate">
+      <div class="plate-shift" id="heroShift">
+        <img src="https://api.getlayers.ai/storage/v1/object/public/public/assets/baseline-88535e4000/hero/hero-court.webp" alt="Player lunging for a shot on a hard court" fetchpriority="high" loading="eager" />
+      </div>
+    </div>
+    <div class="hero-shade"></div>
+    <header class="site-header">
+      <nav class="nav-left" aria-label="Primary">
+        <a href="#programs">Programs &amp; Coaches</a>
+        <a href="#facilities">Club &amp; Events</a>
+      </nav>
+      <div class="brand">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ball"/></svg>
+        Baseline
+      </div>
+      <div class="header-right">
+        <button type="button" class="book-link" id="headerBook">Book a Visit</button>
+        <button type="button" class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Open menu">
+          <span class="burger-bars"><i></i><i></i></span>
+        </button>
+      </div>
+    </header>
+    <h1 class="hero-title" id="hero-title">
+      <span class="clip"><span class="clip-inner">Own</span></span>
+      <span class="clip"><span class="clip-inner">The</span></span>
+      <span class="clip"><span class="clip-inner">Court</span></span>
+    </h1>
+    <div class="hero-bottom">
+      <p class="tagline stack" id="tagline">
+        <span class="clip"><span class="clip-inner">Show Up,</span></span>
+        <span class="clip"><span class="clip-inner">Level Up</span></span>
+      </p>
+      <div class="hero-side">
+        <div class="coll rise" id="coll">
+          <div class="coll-stage" id="collStage" aria-live="polite">
+            <article class="glass coll-card">
+              <img src="https://api.getlayers.ai/storage/v1/object/public/public/assets/baseline-88535e4000/2.webp" alt="Player driving a backhand on a hard court" width="56" height="56" loading="lazy" />
+              <div class="coll-copy">
+                <p class="brand">Baseline Pro</p>
+                <p class="ttl">Featured Gear</p>
+                <a class="cta" href="#shop">Shop the kit →</a>
+              </div>
+            </article>
+          </div>
+          <div id="collDots"></div>
+        </div>
+        <article class="glass member rise" id="member">
+          <div class="member-copy">
+            <p class="member-val">9K+</p>
+            <div>
+              <div class="avatars" aria-hidden="true">
+                <span style="background:#5790e6"></span>
+                <span style="background:#c2e029"></span>
+                <span style="background:#0b6e97"></span>
+                <span style="background:#ffffff"></span>
+              </div>
+              <p class="member-cap">Members on court</p>
+            </div>
+          </div>
+          <img src="https://api.getlayers.ai/storage/v1/object/public/public/assets/baseline-88535e4000/1.webp" alt="Player waiting to return on a clay court" loading="lazy" />
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust" id="trust">
+    <div class="trust-top">
+      <div class="pct rise" id="pct">
+        <div>
+          <strong>100%</strong>
+          <span>Coaching built around your game</span>
+        </div>
+      </div>
+      <article class="badge-card rise" id="badgeCard">
+        <div class="chip">#01</div>
+        <div>
+          <p class="badge-title">Trusted by serious players</p>
+          <p>From first-timers to nationally ranked juniors, players train here because the progress shows up on the scoreboard.</p>
+        </div>
+      </article>
+    </div>
+    <h2 class="ghost-title" id="trust-title">
+      <span class="grow">
+        <span class="gw" data-x="0"><span class="clip ghost"><span class="clip-inner">Expert</span></span></span>
+        <span class="gw" data-x="1"><span class="clip ghost"><span class="clip-inner">Result-</span></span></span>
+      </span>
+      <span class="grow">
+        <span class="gw ink" data-x="2"><span class="clip ghost"><span class="clip-inner">Driven</span></span></span>
+        <span class="gw" data-x="3"><span class="clip ghost"><span class="clip-inner">Coaching</span></span></span>
+      </span>
+    </h2>
+    <div class="coach-pos">
+      <div class="rise" id="coachRise">
+        <figure class="coach-frame">
+          <img id="coachA" src="https://api.getlayers.ai/storage/v1/object/public/public/assets/baseline-88535e4000/5.webp" alt="Head coach set in a ready stance on clay" />
+          <img id="coachB" alt="" />
+          <figcaption class="coach-cap">
+            <strong id="coachName">Marco Vidal</strong>
+            <span id="coachRole">Head Coach</span>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+    <div class="trust-controls">
+      <button type="button" class="arrow-btn outline" id="trustPrev" aria-label="Previous">
+        <svg class="ico flip" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg>
+      </button>
+      <div id="trustDots"></div>
+      <button type="button" class="arrow-btn solid" id="trustNext" aria-label="Next">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <section class="programs-sec" id="programs">
+    <p class="eyebrow dark"><i></i>Training programs</p>
+    <h2 class="display stack" id="programs-title">
+      <span class="clip"><span class="clip-inner">Built for</span></span>
+      <span class="clip"><span class="clip-inner">every level</span></span>
+    </h2>
+    <ul class="programs">
+      <li>
+        <a class="pro-link rise" id="junior" href="#junior">
+          <span class="pro-num">01</span>
+          <span class="pro-meta">
+            <span class="pro-name">Junior Development</span>
+            <span class="pro-desc">Fundamentals, footwork, and match play for ages 6–14.</span>
+          </span>
+          <span class="pro-arrow"><svg class="ico arrow-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </a>
+      </li>
+      <li>
+        <a class="pro-link rise" id="performance" href="#performance">
+          <span class="pro-num">02</span>
+          <span class="pro-meta">
+            <span class="pro-name">Performance Squad</span>
+            <span class="pro-desc">High-volume training for competitive and ranked players.</span>
+          </span>
+          <span class="pro-arrow"><svg class="ico arrow-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </a>
+      </li>
+      <li>
+        <a class="pro-link rise" id="adult" href="#adult">
+          <span class="pro-num">03</span>
+          <span class="pro-meta">
+            <span class="pro-name">Adult Clinics</span>
+            <span class="pro-desc">Small-group sessions to sharpen technique and fitness.</span>
+          </span>
+          <span class="pro-arrow"><svg class="ico arrow-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </a>
+      </li>
+      <li>
+        <a class="pro-link rise" id="private" href="#private">
+          <span class="pro-num">04</span>
+          <span class="pro-meta">
+            <span class="pro-name">Private Coaching</span>
+            <span class="pro-desc">One-to-one sessions tailored to your goals and schedule.</span>
+          </span>
+          <span class="pro-arrow"><svg class="ico arrow-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <section class="facilities" id="facilities">
+    <div class="fac-grid">
+      <div class="fac-intro">
+        <img class="fac-icon rise" id="facImg" src="https://api.getlayers.ai/storage/v1/object/public/public/assets/baseline-88535e4000/3.webp" alt="Player stretching for a forehand on clay" loading="lazy" />
+        <h2 class="display stack" id="facilities-title">
+          <span class="clip"><span class="clip-inner">Tour Our</span></span>
+          <span class="clip"><span class="clip-inner">World-Class</span></span>
+          <span class="clip"><span class="clip-inner">Courts</span></span>
+        </h2>
+        <p class="fac-body wordfade" id="fac-body">Reserve a court for focused practice, squad drills, or private sessions — and train in the same conditions you'll compete in.</p>
+      </div>
+      <div class="courts">
+        <figure class="court rise">
+          <div class="court-media">
+            <img src="https://api.getlayers.ai/storage/v1/object/public/public/assets/baseline-88535e4000/1.webp" alt="Player on the baseline of an outdoor clay court" loading="lazy" />
+            <figcaption class="court-cap clay">
+              <strong>Redline Clay</strong>
+              <span>A fast outdoor clay court tuned for long, physical rallies.</span>
+            </figcaption>
+          </div>
+        </figure>
+        <figure class="court rise">
+          <div class="court-media">
+            <img src="https://api.getlayers.ai/storage/v1/object/public/public/assets/baseline-88535e4000/4.webp" alt="Player following through on a blue hard court" loading="lazy" />
+            <figcaption class="court-cap blue">
+              <strong>Harbor Court</strong>
+              <span>A sheltered hard court built for precision and night play.</span>
+            </figcaption>
+          </div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats" id="stats">
+    <p class="eyebrow light"><i></i>By the numbers</p>
+    <h2 class="display stack" id="stats-title">
+      <span class="clip"><span class="clip-inner">A club that</span></span>
+      <span class="clip"><span class="clip-inner">keeps score</span></span>
+    </h2>
+    <dl class="stats-grid">
+      <div class="stat rise">
+        <dt class="sr-only">Certified coaches</dt>
+        <dd><span class="stat-val">24</span><span class="stat-lbl">Certified coaches</span></dd>
+      </div>
+      <div class="stat rise">
+        <dt class="sr-only">Championship courts</dt>
+        <dd><span class="stat-val">12</span><span class="stat-lbl">Championship courts</span></dd>
+      </div>
+      <div class="stat rise">
+        <dt class="sr-only">Members training</dt>
+        <dd><span class="stat-val">9K+</span><span class="stat-lbl">Members training</span></dd>
+      </div>
+      <div class="stat rise">
+        <dt class="sr-only">Years on the baseline</dt>
+        <dd><span class="stat-val">15</span><span class="stat-lbl">Years on the baseline</span></dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="testimonials" id="testimonials">
+    <p class="eyebrow dark"><i></i>What players say</p>
+    <h2 class="display stack" id="testimonials-title">
+      <span class="clip"><span class="clip-inner">Loved by</span></span>
+      <span class="clip"><span class="clip-inner">the locker room</span></span>
+    </h2>
+    <ul class="t-grid">
+      <li class="rise">
+        <figure class="t-card">
+          <div>
+            <span class="q" aria-hidden="true">"</span>
+            <blockquote>I added a level to my serve in one season. The coaching is detailed and it actually sticks.</blockquote>
+          </div>
+          <figcaption><strong>Priya Anand</strong><span>Performance Squad</span></figcaption>
+        </figure>
+      </li>
+      <li class="rise">
+        <figure class="t-card">
+          <div>
+            <span class="q" aria-hidden="true">"</span>
+            <blockquote>Best courts in the city and a team that treats every member like a competitor.</blockquote>
+          </div>
+          <figcaption><strong>Lukas Brenner</strong><span>Adult Clinics</span></figcaption>
+        </figure>
+      </li>
+      <li class="rise">
+        <figure class="t-card">
+          <div>
+            <span class="q" aria-hidden="true">"</span>
+            <blockquote>My daughter went from shy beginner to club champion. Worth every minute.</blockquote>
+          </div>
+          <figcaption><strong>Dana Okafor</strong><span>Parent, Junior Development</span></figcaption>
+        </figure>
+      </li>
+    </ul>
+  </section>
+
+  <footer class="footer" id="contact">
+    <div class="cta-band">
+      <div>
+        <p class="eyebrow light"><i></i>Get started</p>
+        <p class="display xl stack" id="footer-lines">
+          <span class="clip"><span class="clip-inner">Ready to</span></span>
+          <span class="clip"><span class="clip-inner">play?</span></span>
+        </p>
+      </div>
+      <button type="button" class="pill light rise" id="footerBook">
+        <span>Book a Visit</span>
+        <svg class="ico pill-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg>
+      </button>
+    </div>
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="foot-logo">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ball"/></svg>
+          Baseline
+        </div>
+        <p>A members' tennis club and academy where focused coaching meets championship courts.</p>
+        <address>
+          <a href="mailto:play@baseline.club">play@baseline.club</a>
+          <a href="tel:+12125550148">+1 (212) 555-0148</a>
+          <span class="muted">120 Court Lane, New York</span>
+        </address>
+      </div>
+      <nav aria-label="Programs">
+        <h3>Programs</h3>
+        <ul>
+          <li><a href="#junior">Junior Development</a></li>
+          <li><a href="#performance">Performance Squad</a></li>
+          <li><a href="#adult">Adult Clinics</a></li>
+          <li><a href="#private">Private Coaching</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Club">
+        <h3>Club</h3>
+        <ul>
+          <li><a href="#membership">Membership</a></li>
+          <li><a href="#facilities">Facilities</a></li>
+          <li><a href="#club">Events</a></li>
+          <li><a href="#shop">Pro Shop</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Company">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#programs">Coaches</a></li>
+          <li><a href="#careers">Careers</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="foot-bottom">
+      <p>© 2026 Baseline Tennis Club. All rights reserved.</p>
+      <nav aria-label="Social">
+        <a href="#instagram">Instagram</a>
+        <a href="#x">X</a>
+        <a href="#youtube">YouTube</a>
+        <a href="#linkedin">LinkedIn</a>
+      </nav>
+      <nav aria-label="Legal">
+        <a href="#privacy">Privacy</a>
+        <a href="#terms">Terms</a>
+      </nav>
+    </div>
+  </footer>
+</main>
+
+<div id="loader" role="status" aria-live="polite" aria-label="Loading Baseline">
+  <div class="loader-brand" id="loaderBrand">
+    <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ball"/></svg>
+    <span>Baseline</span>
+  </div>
+  <div class="loader-track" aria-hidden="true"><span id="loaderFill"></span></div>
+</div>
+
+<div id="menu" class="menu" inert aria-hidden="true">
+  <div class="menu-back" id="menuBack"></div>
+  <div class="menu-panel" id="menuPanel" data-lenis-prevent>
+    <div class="menu-top">
+      <div class="lockup">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ball"/></svg>
+        Baseline
+      </div>
+      <button type="button" class="icon-btn ghost" id="menuClose" aria-label="Close menu">
+        <svg class="ico x-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-x"/></svg>
+      </button>
+    </div>
+    <nav class="menu-nav" id="menuNav" aria-label="Overlay">
+      <a href="#programs">Programs</a>
+      <a href="#facilities">Facilities</a>
+      <a href="#testimonials">Reviews</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="menu-bottom">
+      <button type="button" class="pill light" id="menuBook">
+        <span>Book a Visit</span>
+        <svg class="ico pill-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg>
+      </button>
+      <nav class="menu-social" aria-label="Social">
+        <a href="#instagram">Instagram</a>
+        <a href="#x">X</a>
+        <a href="#youtube">YouTube</a>
+        <a href="#linkedin">LinkedIn</a>
+      </nav>
+    </div>
+  </div>
+</div>
+
+<div id="modal" class="overlay" inert aria-hidden="true">
+  <div class="backdrop" id="modalBack"></div>
+  <div class="modal-panel" id="modalPanel" role="dialog" aria-modal="true" aria-labelledby="modalTitle" data-lenis-prevent>
+    <div class="modal-head" id="modalHead">
+      <div>
+        <p class="eyebrow dark"><i></i>Book a visit</p>
+        <h2 class="modal-title stack" id="modalTitle">
+          <span class="clip"><span class="clip-inner">Come see</span></span>
+          <span class="clip"><span class="clip-inner">the courts</span></span>
+        </h2>
+      </div>
+      <button type="button" class="icon-btn soft" id="modalClose" aria-label="Close">
+        <svg class="ico x-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-x"/></svg>
+      </button>
+    </div>
+    <form class="visit-form" id="visitForm" novalidate>
+      <label class="field"><span>Full name</span><input id="visitName" name="name" type="text" autocomplete="name" placeholder="Alex Rivera" /></label>
+      <label class="field"><span>Email</span><input id="visitEmail" name="email" type="email" autocomplete="email" placeholder="you@email.com" /></label>
+      <label class="field"><span>What would you like to play?</span><textarea id="visitNote" name="note" rows="3" placeholder="I'd love to try a private lesson on the clay courts…"></textarea></label>
+      <button type="submit" class="pill solid" id="visitSubmit">Request a visit</button>
+    </form>
+    <div class="success" id="visitSuccess" hidden>
+      <div class="check" aria-hidden="true"><svg class="ico" viewBox="0 0 24 24"><use href="#i-check"/></svg></div>
+      <h3>Request received</h3>
+      <p id="thanksLine"></p>
+      <button type="button" class="pill solid" id="visitDone">
+        <span>Done</span>
+        <svg class="ico pill-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script type="importmap">
+{ "imports": { "lenis": "https://cdn.jsdelivr.net/npm/lenis@1.1.18/+esm" } }
+</script>
+<script type="module">
+import Lenis from 'lenis';
+
+const ASSET = 'https://api.getlayers.ai/storage/v1/object/public/public/assets/baseline-88535e4000';
+const EASE_EXPO = 'cubic-bezier(0.19, 1, 0.22, 1)';
+const EASE_QUART = 'cubic-bezier(0.165, 0.84, 0.44, 1)';
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const MIN_VISIBLE = 1400;
+const MAX_VISIBLE = 2600;
+const EXIT_MS = 850;
+
+const COLL = [
+  { img: '2.webp', brand: 'Baseline Pro', title: 'Featured Gear', cta: 'Shop the kit', alt: 'Player driving a backhand on a hard court' },
+  { img: '3.webp', brand: 'Court Series', title: 'Summer Drop', cta: 'View the line', alt: 'Player stretching for a forehand on clay' },
+  { img: '5.webp', brand: 'Academy Kit', title: 'Junior Range', cta: 'Browse juniors', alt: 'Player set in a ready stance on clay' }
+];
+const TRUST = [
+  { words: ['Expert', 'Result-', 'Driven', 'Coaching'], img: '5.webp', name: 'Marco Vidal', role: 'Head Coach', alt: 'Head coach set in a ready stance on clay' },
+  { words: ['Sharper', 'Faster', 'Stronger', 'Player'], img: '4.webp', name: 'Elena Sokolova', role: 'Performance Coach', alt: 'Performance coach following through on a serve' },
+  { words: ['Future', 'Champions', 'Start', 'Here'], img: '1.webp', name: 'James Okoro', role: 'Juniors Lead', alt: 'Juniors lead waiting to return on clay' }
+];
+const GHOST_X = [[-3, 3], [3, -3], [-2, 4], [4, -3]];
+
+function applyAdaptiveGrid() {
+  const FONT_BASE = 16, BASE_W = 1920, COEF = 0.6666;
+  const reduction = ((BASE_W - innerWidth) / BASE_W) * 100 * COEF;
+  const size = FONT_BASE - (FONT_BASE * reduction) / 100;
+  if (size > FONT_BASE) document.documentElement.style.fontSize = size + 'px';
+  else document.documentElement.style.removeProperty('font-size');
+}
+applyAdaptiveGrid();
+addEventListener('resize', applyAdaptiveGrid);
+
+window.scrollTo(0, 0);
+const lenis = new Lenis({ smoothWheel: true });
+let locks = 0;
+function stopScroll() {
+  locks += 1;
+  lenis.stop();
+  const html = document.documentElement;
+  html.style.position = 'relative';
+  html.style.overflow = 'hidden';
+  html.style.height = '100%';
+}
+function startScroll() {
+  locks = Math.max(0, locks - 1);
+  if (locks > 0) return;
+  lenis.start();
+  const html = document.documentElement;
+  html.style.removeProperty('position');
+  html.style.removeProperty('overflow');
+  html.style.removeProperty('height');
+}
+
+const jobs = [];
+function readSprings(st) {
+  const out = {};
+  for (const k in st) out[k] = st[k].x;
+  return out;
+}
+function spring(from, to, tension, friction, apply) {
+  const st = {};
+  Object.keys(to).forEach((k) => { st[k] = { x: from[k], v: 0, target: to[k] }; });
+  const job = { st, tension, friction, apply, alive: true };
+  apply(readSprings(st));
+  jobs.push(job);
+  return {
+    to(next) {
+      Object.keys(next).forEach((k) => {
+        if (!st[k]) st[k] = { x: next[k], v: 0, target: next[k] };
+        else st[k].target = next[k];
+      });
+      job.alive = true;
+    },
+    jump(next) {
+      Object.keys(next).forEach((k) => {
+        if (!st[k]) st[k] = { x: next[k], v: 0, target: next[k] };
+        else { st[k].x = next[k]; st[k].v = 0; st[k].target = next[k]; }
+      });
+      job.alive = false;
+      apply(readSprings(st));
+    }
+  };
+}
+function tickSprings(dt) {
+  for (const job of jobs) {
+    if (!job.alive) continue;
+    let settled = true;
+    for (const k in job.st) {
+      const s = job.st[k];
+      const accel = -job.tension * (s.x - s.target) - job.friction * s.v;
+      s.v += accel * dt;
+      s.x += s.v * dt;
+      if (Math.abs(s.target - s.x) < 0.001 && Math.abs(s.v) < 0.001) { s.x = s.target; s.v = 0; }
+      else settled = false;
+    }
+    job.apply(readSprings(job.st));
+    if (settled) job.alive = false;
+  }
+}
+function easeInOutCubic(t) {
+  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+}
+function canHover() { return innerWidth > 768; }
+function hoverSpring(el, from, to, tension, friction, apply) {
+  apply(from);
+  if (reduce) return;
+  let handle = null;
+  const go = (target) => {
+    if (!handle) handle = spring({ ...from }, target, tension, friction, apply);
+    else handle.to(target);
+  };
+  el.addEventListener('mouseenter', () => { if (canHover()) go(to); });
+  el.addEventListener('mouseleave', () => { if (canHover()) go(from); });
+}
+
+function playClip(inners, { stagger = 0, duration = 950, delay = 0, ease = EASE_EXPO, from = '115%' } = {}) {
+  inners.forEach((span, i) => {
+    if (reduce) {
+      span.style.transition = 'none';
+      span.style.transform = 'none';
+      span.style.opacity = '1';
+      return;
+    }
+    span.style.transition = 'none';
+    span.style.transform = `translateY(${from})`;
+    span.style.opacity = '0';
+    void span.offsetWidth;
+    const d = delay + i * stagger;
+    span.style.transition = `transform ${duration}ms ${ease} ${d}ms, opacity ${duration}ms ${ease} ${d}ms`;
+    span.style.transform = 'translateY(0)';
+    span.style.opacity = '1';
+  });
+}
+
+const ioMap = new Map();
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) return;
+    const fn = ioMap.get(entry.target);
+    if (!fn) return;
+    ioMap.delete(entry.target);
+    io.unobserve(entry.target);
+    fn();
+  });
+}, { threshold: 0 });
+function ioOnce(el, fn) {
+  if (reduce) { fn(); return; }
+  ioMap.set(el, fn);
+  io.observe(el);
+}
+
+let ready = false;
+const readyFns = [];
+function whenReady(fn) { if (ready) fn(); else readyFns.push(fn); }
+function markReady() {
+  if (ready) return;
+  ready = true;
+  readyFns.splice(0).forEach((fn) => fn());
+}
+
+function bindRise(el, opts) {
+  const from = { opacity: 0, y: opts.y ?? 0, scale: opts.scale0 ?? 1 };
+  const to = { opacity: 1, y: 0, scale: 1 };
+  const apply = (v) => {
+    el.style.opacity = String(v.opacity);
+    el.style.transform = `translateY(${v.y}px) scale(${v.scale})`;
+  };
+  apply(reduce ? to : from);
+  const go = () => {
+    const run = () => {
+      if (reduce) { apply(to); return; }
+      spring(from, to, opts.tension, opts.friction, apply);
+    };
+    if (opts.delay) setTimeout(run, opts.delay);
+    else run();
+  };
+  if (opts.gate === 'ready') whenReady(go);
+  else ioOnce(el, go);
+}
+function bindLines(el, opts) {
+  const inners = [...el.querySelectorAll(':scope > .clip > .clip-inner, :scope > .clip .clip-inner')];
+  const nodes = [...el.querySelectorAll('.clip-inner')];
+  const play = () => playClip(nodes, opts);
+  if (opts.gate === 'ready') whenReady(play);
+  else ioOnce(el, play);
+}
+
+function scrollProgress(el) {
+  const r = el.getBoundingClientRect();
+  const vh = innerHeight || 1;
+  return Math.min(1, Math.max(0, (vh - r.top) / (r.height + vh)));
+}
+
+const hero = document.querySelector('.hero');
+const heroShift = document.getElementById('heroShift');
+const trustEl = document.getElementById('trust');
+const ghostWords = [...document.querySelectorAll('#trust-title .gw')];
+function updateParallax() {
+  heroShift.style.transform = `translateY(${scrollProgress(hero) * 12}%)`;
+  const p = scrollProgress(trustEl);
+  ghostWords.forEach((el, i) => {
+    const [a, b] = GHOST_X[i];
+    el.style.transform = `translateX(${a + (b - a) * p}%)`;
+  });
+}
+
+let last = 0;
+function raf(t) {
+  if (!last) last = t;
+  const dt = Math.min(0.05, (t - last) / 1000);
+  last = t;
+  lenis.raf(t);
+  if (dt > 0) tickSprings(dt);
+  updateParallax();
+  requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
+stopScroll();
+
+const loader = document.getElementById('loader');
+const loaderBrand = document.getElementById('loaderBrand');
+const loaderFill = document.getElementById('loaderFill');
+if (reduce) {
+  loaderBrand.style.opacity = '1';
+  loaderBrand.style.transform = 'none';
+  loaderFill.style.transform = 'scaleX(1)';
+} else {
+  spring({ opacity: 0, y: 16 }, { opacity: 1, y: 0 }, 200, 22, (v) => {
+    loaderBrand.style.opacity = String(v.opacity);
+    loaderBrand.style.transform = `translateY(${v.y}px)`;
+  });
+  const barAt = performance.now() + 120;
+  const barDur = 1280;
+  const paintBar = (now) => {
+    if (now < barAt) { requestAnimationFrame(paintBar); return; }
+    const p = Math.min(1, (now - barAt) / barDur);
+    loaderFill.style.transform = `scaleX(${easeInOutCubic(p)})`;
+    if (p < 1) requestAnimationFrame(paintBar);
+  };
+  requestAnimationFrame(paintBar);
+}
+let loaderDone = false;
+function finishLoader() {
+  if (loaderDone) return;
+  loaderDone = true;
+  markReady();
+  startScroll();
+  if (reduce) { loader.remove(); return; }
+  const t0 = performance.now();
+  const step = (now) => {
+    const p = Math.min(1, (now - t0) / EXIT_MS);
+    loader.style.transform = `translateY(${-105 * easeInOutCubic(p)}%)`;
+    if (p < 1) requestAnimationFrame(step);
+    else loader.remove();
+  };
+  requestAnimationFrame(step);
+}
+const mountedAt = performance.now();
+let armed = false;
+function armLoader() {
+  if (armed) return;
+  armed = true;
+  const min = reduce ? 200 : MIN_VISIBLE;
+  setTimeout(finishLoader, Math.max(0, min - (performance.now() - mountedAt)));
+}
+if (document.readyState === 'complete') armLoader();
+else addEventListener('load', armLoader, { once: true });
+setTimeout(armLoader, reduce ? 200 : MAX_VISIBLE);
+
+bindLines(document.getElementById('hero-title'), { gate: 'ready', stagger: 140, duration: 1100, delay: 0, ease: EASE_EXPO });
+bindLines(document.getElementById('tagline'), { gate: 'ready', stagger: 110, duration: 900, delay: 350, ease: EASE_EXPO });
+bindLines(document.getElementById('programs-title'), { stagger: 120, duration: 950, ease: EASE_EXPO });
+bindLines(document.getElementById('facilities-title'), { stagger: 120, duration: 950, ease: EASE_EXPO });
+bindLines(document.getElementById('stats-title'), { stagger: 120, duration: 950, ease: EASE_EXPO });
+bindLines(document.getElementById('testimonials-title'), { stagger: 120, duration: 950, ease: EASE_EXPO });
+bindLines(document.getElementById('footer-lines'), { stagger: 120, duration: 950, ease: EASE_EXPO });
+
+bindRise(document.getElementById('coll'), { gate: 'ready', y: 28, delay: 650, tension: 200, friction: 26 });
+bindRise(document.getElementById('member'), { gate: 'ready', y: 28, delay: 780, tension: 200, friction: 26 });
+bindRise(document.getElementById('pct'), { scale0: 0.9, tension: 220, friction: 22 });
+bindRise(document.getElementById('badgeCard'), { y: 24, delay: 120, tension: 200, friction: 26 });
+bindRise(document.getElementById('coachRise'), { y: 60, scale0: 0.92, tension: 170, friction: 26 });
+bindRise(document.getElementById('facImg'), { scale0: 0.85, tension: 240, friction: 20 });
+bindRise(document.getElementById('footerBook'), { y: 20, delay: 150, tension: 200, friction: 24 });
+document.querySelectorAll('.pro-link').forEach((el, i) => bindRise(el, { y: 26, delay: i * 90, tension: 190, friction: 26 }));
+document.querySelectorAll('.court').forEach((el, i) => bindRise(el, { y: 48, delay: i * 140, tension: 180, friction: 26 }));
+document.querySelectorAll('.stat').forEach((el, i) => bindRise(el, { y: 30, delay: i * 110, tension: 180, friction: 24 }));
+document.querySelectorAll('.t-grid > li').forEach((el, i) => bindRise(el, { y: 40, delay: i * 120, tension: 180, friction: 26 }));
+
+function splitWords(el) {
+  const parts = el.textContent.trim().split(/\s+/);
+  el.textContent = '';
+  el.style.opacity = '1';
+  return parts.map((word, i) => {
+    const s = document.createElement('span');
+    s.className = 'w';
+    s.textContent = word;
+    el.appendChild(s);
+    if (i < parts.length - 1) el.appendChild(document.createTextNode(' '));
+    return s;
+  });
+}
+const facWords = splitWords(document.getElementById('fac-body'));
+ioOnce(document.getElementById('fac-body'), () => {
+  playClip(facWords, { stagger: 28, duration: 700, delay: 250, ease: EASE_QUART, from: '18px' });
+});
+
+document.querySelectorAll('.pill').forEach((btn) => {
+  const arrow = btn.querySelector('.pill-arrow');
+  if (!arrow) return;
+  hoverSpring(btn, { x: 0 }, { x: 5 }, 320, 20, (v) => { arrow.style.transform = `translateX(${v.x}px)`; });
+});
+document.querySelectorAll('.arrow-btn').forEach((btn) => {
+  const svg = btn.querySelector('svg');
+  const flip = svg.classList.contains('flip');
+  hoverSpring(btn, { scale: 1 }, { scale: 1.15 }, 320, 18, (v) => {
+    svg.style.transform = `${flip ? 'scaleX(-1) ' : ''}scale(${v.scale})`;
+  });
+});
+document.querySelectorAll('.x-ico').forEach((svg) => {
+  hoverSpring(svg.parentElement, { r: 0 }, { r: 90 }, 300, 18, (v) => { svg.style.transform = `rotate(${v.r}deg)`; });
+});
+document.querySelectorAll('.pro-link').forEach((row) => {
+  const svg = row.querySelector('.arrow-ico');
+  hoverSpring(row, { x: 0, opacity: 0.55 }, { x: 8, opacity: 1 }, 300, 20, (v) => {
+    svg.style.transform = `translateX(${v.x}px)`;
+    svg.style.opacity = String(v.opacity);
+  });
+});
+document.querySelectorAll('.court-media img').forEach((img) => {
+  hoverSpring(img.parentElement, { scale: 1 }, { scale: 1.03 }, 300, 22, (v) => { img.style.transform = `scale(${v.scale})`; });
+});
+document.querySelectorAll('.t-card').forEach((card) => {
+  hoverSpring(card, { y: 0 }, { y: -8 }, 300, 22, (v) => { card.style.transform = `translateY(${v.y}px)`; });
+});
+
+function makeDots(container, count, tone, onPick) {
+  container.className = tone ? `dots ${tone}` : 'dots';
+  for (let i = 0; i < count; i += 1) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('aria-label', `Go to slide ${i + 1}`);
+    b.innerHTML = '<i></i>';
+    b.addEventListener('click', () => onPick(i));
+    container.appendChild(b);
+  }
+}
+function paintDots(container, index) {
+  [...container.children].forEach((b, i) => {
+    b.classList.toggle('on', i === index);
+    if (i === index) b.setAttribute('aria-current', 'true');
+    else b.removeAttribute('aria-current');
+  });
+}
+function buildCard(s) {
+  const card = document.createElement('article');
+  card.className = 'glass coll-card';
+  const img = document.createElement('img');
+  img.src = `${ASSET}/${s.img}`;
+  img.alt = s.alt;
+  img.width = 56;
+  img.height = 56;
+  img.loading = 'lazy';
+  const copy = document.createElement('div');
+  copy.className = 'coll-copy';
+  const brand = document.createElement('p');
+  brand.className = 'brand';
+  brand.textContent = s.brand;
+  const ttl = document.createElement('p');
+  ttl.className = 'ttl';
+  ttl.textContent = s.title;
+  const cta = document.createElement('a');
+  cta.className = 'cta';
+  cta.href = '#shop';
+  cta.textContent = `${s.cta} →`;
+  copy.append(brand, ttl, cta);
+  card.append(img, copy);
+  return card;
+}
+
+const collStage = document.getElementById('collStage');
+const collDots = document.getElementById('collDots');
+let collIndex = 0;
+let collTimer = 0;
+function renderColl(i, animate) {
+  const next = (i + COLL.length) % COLL.length;
+  if (next === collIndex && collStage.children.length && animate) return;
+  const card = buildCard(COLL[next]);
+  const current = collStage.querySelector('.coll-card:not(.leaving)');
+  if (!animate || reduce || !current) {
+    collStage.replaceChildren(card);
+  } else {
+    collStage.querySelectorAll('.leaving').forEach((n) => n.remove());
+    const out = current;
+    out.classList.add('leaving');
+    collStage.style.minHeight = `${collStage.offsetHeight}px`;
+    out.style.position = 'absolute';
+    out.style.left = '0';
+    out.style.right = '0';
+    out.style.top = '0';
+    collStage.appendChild(card);
+    spring({ opacity: 1, y: 0, scale: 1 }, { opacity: 0, y: 16, scale: 0.96 }, 210, 24, (v) => {
+      out.style.opacity = String(v.opacity);
+      out.style.transform = `translateY(${v.y}px) scale(${v.scale})`;
+    });
+    spring({ opacity: 0, y: 16, scale: 0.96 }, { opacity: 1, y: 0, scale: 1 }, 210, 24, (v) => {
+      card.style.opacity = String(v.opacity);
+      card.style.transform = `translateY(${v.y}px) scale(${v.scale})`;
+    });
+    setTimeout(() => { out.remove(); if (!collStage.querySelector('.leaving')) collStage.style.minHeight = ''; }, 900);
+  }
+  collIndex = next;
+  paintDots(collDots, collIndex);
+}
+function armColl() {
+  clearInterval(collTimer);
+  collTimer = setInterval(() => renderColl(collIndex + 1, true), 3800);
+}
+makeDots(collDots, COLL.length, 'light', (i) => { renderColl(i, true); armColl(); });
+paintDots(collDots, 0);
+whenReady(armColl);
+COLL.forEach((s) => { const im = new Image(); im.src = `${ASSET}/${s.img}`; });
+
+const trustDots = document.getElementById('trustDots');
+const coachA = document.getElementById('coachA');
+const coachB = document.getElementById('coachB');
+const coachName = document.getElementById('coachName');
+const coachRole = document.getElementById('coachRole');
+let trustIndex = 0;
+let trustFront = 0;
+let trustSeen = false;
+const coachImgs = [coachA, coachB];
+coachB.style.opacity = '0';
+function playGhost() {
+  playClip([...document.querySelectorAll('#trust-title .clip-inner')], { duration: 700, stagger: 0, ease: EASE_EXPO });
+}
+function showTrust(i, animate) {
+  const next = (i + TRUST.length) % TRUST.length;
+  const same = next === trustIndex;
+  trustIndex = next;
+  const slide = TRUST[next];
+  const inners = [...document.querySelectorAll('#trust-title .clip-inner')];
+  slide.words.forEach((word, idx) => { inners[idx].textContent = word; });
+  coachName.textContent = slide.name;
+  coachRole.textContent = slide.role;
+  paintDots(trustDots, trustIndex);
+  if (!same) {
+    const incoming = coachImgs[1 - trustFront];
+    const outgoing = coachImgs[trustFront];
+    incoming.src = `${ASSET}/${slide.img}`;
+    incoming.alt = slide.alt;
+    incoming.style.zIndex = '1';
+    outgoing.style.zIndex = '0';
+    if (reduce || !animate) {
+      incoming.style.opacity = '1';
+      outgoing.style.opacity = '0';
+    } else {
+      spring({ opacity: 0 }, { opacity: 1 }, 260, 26, (v) => { incoming.style.opacity = String(v.opacity); });
+      spring({ opacity: 1 }, { opacity: 0 }, 260, 26, (v) => { outgoing.style.opacity = String(v.opacity); });
+    }
+    trustFront = 1 - trustFront;
+  }
+  if (trustSeen && animate !== false) playGhost();
+}
+makeDots(trustDots, TRUST.length, '', (i) => showTrust(i, true));
+paintDots(trustDots, 0);
+document.getElementById('trustPrev').addEventListener('click', () => showTrust(trustIndex - 1, true));
+document.getElementById('trustNext').addEventListener('click', () => showTrust(trustIndex + 1, true));
+ioOnce(trustEl, () => { trustSeen = true; playGhost(); });
+TRUST.forEach((s) => { const im = new Image(); im.src = `${ASSET}/${s.img}`; });
+
+const menu = document.getElementById('menu');
+const menuPanel = document.getElementById('menuPanel');
+const menuBack = document.getElementById('menuBack');
+const burger = document.getElementById('burger');
+const menuLinks = [...document.getElementById('menuNav').querySelectorAll('a')];
+let menuBackSpring = null;
+let menuPanelSpring = null;
+const linkSprings = menuLinks.map((el) => spring({ opacity: 0, y: 28 }, { opacity: 0, y: 28 }, 200, 26, (v) => {
+  el.style.opacity = String(v.opacity);
+  el.style.transform = `translateY(${v.y}px)`;
+}));
+function applyMenuBack(v) { menuBack.style.opacity = String(v.opacity); }
+function applyMenuPanel(v) {
+  menuPanel.style.opacity = String(v.opacity);
+  menuPanel.style.transform = `translateY(${v.y}px)`;
+}
+function openMenu() {
+  menu.classList.add('open');
+  menu.inert = false;
+  menu.setAttribute('aria-hidden', 'false');
+  burger.setAttribute('aria-expanded', 'true');
+  stopScroll();
+  if (!menuBackSpring) menuBackSpring = spring({ opacity: 0 }, { opacity: 1 }, 260, 30, applyMenuBack);
+  else { menuBackSpring.jump({ opacity: 0 }); menuBackSpring.to({ opacity: 1 }); }
+  if (!menuPanelSpring) menuPanelSpring = spring({ opacity: 0, y: -24 }, { opacity: 1, y: 0 }, 220, 28, applyMenuPanel);
+  else { menuPanelSpring.jump({ opacity: 0, y: -24 }); menuPanelSpring.to({ opacity: 1, y: 0 }); }
+  menuLinks.forEach((el, i) => {
+    linkSprings[i].jump({ opacity: 0, y: 28 });
+    setTimeout(() => linkSprings[i].to({ opacity: 1, y: 0 }), reduce ? 0 : 120 + i * 70);
+  });
+}
+function closeMenu() {
+  if (!menu.classList.contains('open')) return;
+  menu.classList.remove('open');
+  menu.inert = true;
+  menu.setAttribute('aria-hidden', 'true');
+  burger.setAttribute('aria-expanded', 'false');
+  if (menuBackSpring) menuBackSpring.to({ opacity: 0 });
+  if (menuPanelSpring) menuPanelSpring.to({ opacity: 0, y: -24 });
+  startScroll();
+}
+burger.addEventListener('click', openMenu);
+document.getElementById('menuClose').addEventListener('click', closeMenu);
+menu.addEventListener('click', (e) => {
+  if (e.target.closest('a, button')) return;
+  closeMenu();
+});
+menuLinks.forEach((a) => {
+  a.addEventListener('click', (e) => {
+    const id = a.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    e.preventDefault();
+    closeMenu();
+    if (el) requestAnimationFrame(() => lenis.scrollTo(el));
+  });
+});
+
+const modal = document.getElementById('modal');
+const modalPanel = document.getElementById('modalPanel');
+const modalBack = document.getElementById('modalBack');
+const visitForm = document.getElementById('visitForm');
+const visitSuccess = document.getElementById('visitSuccess');
+const visitSubmit = document.getElementById('visitSubmit');
+const visitName = document.getElementById('visitName');
+const modalHead = document.getElementById('modalHead');
+let modalBackSpring = null;
+let modalPanelSpring = null;
+let formGen = 0;
+function applyModalBack(v) { modalBack.style.opacity = String(v.opacity); }
+function applyModalPanel(v) {
+  modalPanel.style.opacity = String(v.opacity);
+  modalPanel.style.transform = `translateY(${v.y}px) scale(${v.scale})`;
+}
+function resetForm() {
+  visitForm.reset();
+  visitForm.hidden = false;
+  visitSuccess.hidden = true;
+  modalHead.hidden = false;
+  visitSubmit.disabled = false;
+  visitSubmit.textContent = 'Request a visit';
+}
+function openModal() {
+  modal.classList.add('open');
+  modal.inert = false;
+  modal.setAttribute('aria-hidden', 'false');
+  stopScroll();
+  if (!modalBackSpring) modalBackSpring = spring({ opacity: 0 }, { opacity: 1 }, 240, 30, applyModalBack);
+  else { modalBackSpring.jump({ opacity: 0 }); modalBackSpring.to({ opacity: 1 }); }
+  if (!modalPanelSpring) modalPanelSpring = spring({ opacity: 0, y: 28, scale: 0.96 }, { opacity: 1, y: 0, scale: 1 }, 240, 26, applyModalPanel);
+  else { modalPanelSpring.jump({ opacity: 0, y: 28, scale: 0.96 }); modalPanelSpring.to({ opacity: 1, y: 0, scale: 1 }); }
+  playClip([...document.querySelectorAll('#modalTitle .clip-inner')], { stagger: 90, duration: 800, ease: EASE_EXPO });
+  setTimeout(() => visitName.focus({ preventScroll: true }), 120);
+}
+function closeModal() {
+  if (!modal.classList.contains('open')) return;
+  modal.classList.remove('open');
+  modal.inert = true;
+  modal.setAttribute('aria-hidden', 'true');
+  if (modalBackSpring) modalBackSpring.to({ opacity: 0 });
+  if (modalPanelSpring) modalPanelSpring.to({ opacity: 0, y: 28, scale: 0.96 });
+  startScroll();
+  formGen += 1;
+  const gen = formGen;
+  setTimeout(() => { if (gen === formGen) resetForm(); }, 350);
+}
+function askVisit() { openModal(); }
+document.getElementById('headerBook').addEventListener('click', askVisit);
+document.getElementById('footerBook').addEventListener('click', askVisit);
+document.getElementById('menuBook').addEventListener('click', () => { closeMenu(); openModal(); });
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('visitDone').addEventListener('click', closeModal);
+modal.addEventListener('click', (e) => {
+  if (e.target === modal || e.target === modalBack) closeModal();
+});
+visitForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  if (visitSubmit.disabled) return;
+  const gen = formGen;
+  visitSubmit.disabled = true;
+  visitSubmit.textContent = 'Sending…';
+  setTimeout(() => {
+    if (gen !== formGen) return;
+    const first = (visitName.value.trim().split(/\s+/)[0]) || 'there';
+    document.getElementById('thanksLine').textContent = `Thanks, ${first} — our team will be in touch to lock in your visit.`;
+    visitForm.hidden = true;
+    modalHead.hidden = true;
+    visitSuccess.hidden = false;
+  }, 650);
+});
+
+addEventListener('keydown', (e) => {
+  if (e.key !== 'Escape') return;
+  if (modal.classList.contains('open')) closeModal();
+  else if (menu.classList.contains('open')) closeMenu();
+});
+
+document.addEventListener('click', (e) => {
+  const a = e.target.closest('a[href^="#"]');
+  if (!a || menu.contains(a)) return;
+  const id = a.getAttribute('href').slice(1);
+  if (!id) return;
+  const el = document.getElementById(id);
+  if (!el) return;
+  e.preventDefault();
+  lenis.scrollTo(el);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>owame — exploración de logos, paleta y temas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;1,9..40,400&family=Fraunces:opsz,wght@9..144,560;9..144,700&family=Instrument+Sans:wght@400;600&family=Inter:wght@400;600&family=Newsreader:opsz,wght@6..72,500;6..72,650&family=Poppins:wght@400;600;800&family=Source+Sans+3:wght@400;600&family=Source+Serif+4:opsz,wght@8..60,560;8..60,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --petrol: #2c4a52;
+      --teal: #2f9e8f;
+      --teal-dark: #1e7a6b;
+      --coral: #f2621f;
+      --coral-dark: #c74e15;
+      --cream: #f2eee3;
+      --white: #ffffff;
+      --ink: #1a1a1a;
+      --muted: #5c6b6f;
+      --mist: #e4dfd2;
+      --canvas: 1440px;
+      --content: 1200px;
+      --gutter: 24px;
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 24px;
+      --space-6: 32px;
+      --space-7: 48px;
+      --space-8: 64px;
+      --space-9: 96px;
+      --r-1: 4px;
+      --r-2: 8px;
+      --r-3: 12px;
+      --r-4: 16px;
+      --ease: cubic-bezier(.2, .8, .2, 1);
+      --dur: 200ms;
+      --font: "Poppins", "Segoe UI", sans-serif;
+      --measure: 65ch;
+      --focus: 0 0 0 3px #fff, 0 0 0 5px var(--petrol);
+      --shadow-1: 0 1px 2px rgba(26, 26, 26, .06);
+      --shadow-2: 0 8px 24px rgba(44, 74, 82, .08);
+      --shadow-3: 0 16px 40px rgba(44, 74, 82, .12);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      padding-bottom: 76px;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: var(--font);
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+    :focus { outline: none; }
+    :focus-visible { box-shadow: var(--focus); }
+    a { color: var(--teal-dark); }
+    .wrap { width: min(100% - 32px, var(--content)); margin: 0 auto; }
+    .band { padding: var(--space-8) 0; }
+    .band + .band { border-top: 1px solid var(--mist); }
+    .kicker {
+      margin: 0 0 var(--space-2);
+      color: var(--muted);
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    h1, h2, h3 { line-height: 1.15; letter-spacing: -.02em; }
+    h1 { font-size: clamp(2rem, 1.4rem + 2vw, 3.25rem); font-weight: 800; margin: 0 0 var(--space-4); color: var(--petrol); }
+    h2 { font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); font-weight: 800; margin: 0 0 var(--space-3); color: var(--petrol); }
+    h3 { font-size: 1.125rem; font-weight: 600; margin: 0 0 var(--space-2); }
+    .lead { max-width: var(--measure); margin: 0 0 var(--space-5); }
+    .note { color: var(--muted); font-size: .9rem; max-width: var(--measure); }
+    .grid-12 {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: var(--gutter);
+    }
+    .c3 { grid-column: span 3; }
+    .c4 { grid-column: span 4; }
+    .c6 { grid-column: span 6; }
+    .c8 { grid-column: span 8; }
+    .c12 { grid-column: span 12; }
+    .card {
+      background: var(--white);
+      border: 1px solid var(--mist);
+      border-radius: var(--r-4);
+      padding: var(--space-5);
+      box-shadow: var(--shadow-1);
+    }
+    .logo-plate {
+      min-height: 140px;
+      display: grid;
+      place-items: center;
+      border-radius: var(--r-3);
+      margin-bottom: var(--space-3);
+      padding: var(--space-4);
+    }
+    .logo-plate img { max-width: 100%; height: auto; max-height: 72px; }
+    .logo-plate.cream { background: var(--cream); }
+    .logo-plate.white { background: var(--white); border: 1px solid var(--mist); }
+    .logo-plate.petrol { background: var(--petrol); }
+    .swatch {
+      border-radius: var(--r-3);
+      min-height: 96px;
+      padding: var(--space-3);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      border: 1px solid transparent;
+    }
+    .swatch b { font-size: .95rem; }
+    .swatch span { font-size: .75rem; font-family: ui-monospace, monospace; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      min-width: 44px;
+      padding: 0 20px;
+      border-radius: var(--r-2);
+      border: 1px solid transparent;
+      background: var(--petrol);
+      color: #fff;
+      font: 600 .95rem/1 var(--font);
+      text-decoration: none;
+      cursor: pointer;
+      transition: background var(--dur) var(--ease), transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+    }
+    .btn:hover { background: #243e45; }
+    .btn:active { transform: translateY(1px); }
+    .btn:disabled, .btn.is-disabled {
+      background: var(--mist);
+      color: var(--muted);
+      cursor: not-allowed;
+      transform: none;
+    }
+    .btn.loading { color: transparent; position: relative; }
+    .btn.loading::after {
+      content: "";
+      position: absolute;
+      width: 16px; height: 16px;
+      border: 2px solid #fff;
+      border-right-color: transparent;
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+    }
+    .btn.ghost {
+      background: transparent;
+      color: var(--petrol);
+      border-color: var(--petrol);
+    }
+    .btn.ghost:hover { background: rgba(44, 74, 82, .06); }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .theme {
+      border-radius: var(--r-4);
+      padding: var(--space-5);
+      min-height: 220px;
+      border: 1px solid var(--mist);
+      transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+    }
+    .theme:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); }
+    .theme h3 { font-size: 1.35rem; }
+    .t-crema { background: var(--cream); color: var(--ink); }
+    .t-crema h3 { color: var(--petrol); }
+    .t-blanco { background: var(--white); color: var(--ink); }
+    .t-blanco h3 { color: var(--petrol); }
+    .t-petrol { background: var(--petrol); color: var(--cream); border-color: transparent; }
+    .t-petrol h3, .t-petrol p { color: var(--cream); }
+    .t-petrol .dot { background: var(--coral); }
+    .t-duo { background: var(--white); }
+    .t-duo h3 .a { color: var(--petrol); }
+    .t-duo h3 .b { color: var(--teal); }
+    .dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--coral); display: inline-block; margin-right: 8px;
+    }
+    .pair { padding: var(--space-4); border: 1px solid var(--mist); border-radius: var(--r-3); background: #fff; }
+    .pair .eye { font-size: .75rem; color: var(--muted); letter-spacing: .04em; text-transform: uppercase; }
+    .study { outline: 1px dashed var(--coral); outline-offset: 4px; }
+    .scale { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: baseline; }
+    .ruler { display: flex; gap: 2px; align-items: flex-end; height: 96px; }
+    .ruler i {
+      display: block; width: 28px; background: var(--petrol); font-style: normal;
+      color: #fff; font-size: 10px; text-align: center;
+    }
+    table { width: 100%; border-collapse: collapse; background: #fff; border-radius: var(--r-3); overflow: hidden; }
+    th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--mist); vertical-align: top; }
+    th { background: var(--cream); color: var(--petrol); }
+    details {
+      background: #fff; border: 1px solid var(--mist); border-radius: var(--r-3);
+      padding: 0 var(--space-4); margin-bottom: var(--space-2);
+    }
+    summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; font-weight: 600; color: var(--petrol); }
+    .steps { display: flex; gap: var(--space-3); list-style: none; padding: 0; margin: 0; }
+    .steps li {
+      flex: 1; min-height: 72px; background: #fff; border: 1px solid var(--mist);
+      border-radius: var(--r-3); padding: var(--space-3);
+    }
+    .steps .now { border-color: var(--petrol); box-shadow: var(--shadow-1); }
+    .sticky-cta {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 5;
+      background: rgba(242, 238, 227, .86);
+      backdrop-filter: blur(8px);
+      border-top: 1px solid var(--mist);
+      padding: var(--space-3) 0;
+    }
+    .sticky-cta .wrap { display: flex; justify-content: space-between; align-items: center; gap: var(--space-4); }
+    .hero-split { display: grid; grid-template-columns: 1.1fr .9fr; gap: var(--space-6); align-items: center; }
+    .hero-media {
+      min-height: 280px; border-radius: var(--r-4); background: var(--mist);
+      border: 1px dashed var(--muted); display: grid; place-items: center; color: var(--muted);
+    }
+    .err { border-color: var(--coral-dark); background: #fff6f2; }
+    .empty { border-style: dashed; color: var(--muted); }
+    .reveal { opacity: 0; transform: translateY(12px); animation: rise var(--dur) var(--ease) forwards; }
+    @keyframes rise { to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation: none !important; transition: none !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+      .theme:hover { transform: none; }
+    }
+    @media (max-width: 800px) {
+      .c3, .c4, .c6, .c8 { grid-column: 1 / -1; }
+      .hero-split, .steps, .sticky-cta .wrap { display: block; }
+      .steps li, .sticky-cta .btn { margin-top: var(--space-3); }
+    }
+  </style>
+</head>
+<body>
+  <header class="band">
+    <div class="wrap hero-split">
+      <div>
+        <p class="kicker">Exploración · no es el índice final</p>
+        <h1>Logos, paleta y temas de owame</h1>
+        <p class="lead">Misma paleta de la marca. Cuatro superficies para ver cómo se combinan. Los pares con serif son un estudio: la tipografía vigente sigue siendo Poppins.</p>
+        <p>
+          <a class="btn" href="#temas">Ver temas</a>
+          <a class="btn ghost" href="#logos" style="margin-left:8px">Ver logos</a>
+        </p>
+      </div>
+      <div class="hero-media">[ASK] captura real del día clínico</div>
+    </div>
+  </header>
+
+  <section class="band" id="logos">
+    <div class="wrap">
+      <p class="kicker">Logos en disco</p>
+      <h2>Wordmarks</h2>
+      <p class="note">Ruta tipográfica. Recomendado para la landing: «Owame» en petróleo sobre crema o blanco. El duotono y la minúscula son alternativas, no se mezclan en el mismo encabezado. La O con textura de piedra no entra aquí: se lee como otra marca.</p>
+      <div class="grid-12" style="margin-top:24px">
+        <article class="card c4 reveal">
+          <div class="logo-plate cream"><img src="../../../Identidad_marca/owame/logos-propuesta/wordmarks/owame-wordmark-Owame-petrol.svg" alt="Owame en petróleo"></div>
+          <h3>Vigente</h3>
+          <p class="note">Owame · petróleo sobre crema.</p>
+        </article>
+        <article class="card c4 reveal">
+          <div class="logo-plate white"><img src="../../../Identidad_marca/owame/logos-propuesta/wordmarks/owame-wordmark-lowercase-petrol.svg" alt="owame en minúsculas petróleo"></div>
+          <h3>Minúsculas</h3>
+          <p class="note">owame · una sola grafía si se elige esta.</p>
+        </article>
+        <article class="card c4 reveal">
+          <div class="logo-plate white"><img src="../../../Identidad_marca/owame/logos-propuesta/wordmarks/owame-wordmark-lowercase-duotone.svg" alt="owame en duotono petróleo y teal"></div>
+          <h3>Duotono</h3>
+          <p class="note">owa en petróleo, me en teal. Estudio.</p>
+        </article>
+        <article class="card c4 reveal">
+          <div class="logo-plate cream"><img src="../../../Identidad_marca/owame/logos-propuesta/wordmarks/owame-lockup-by-newachi.svg" alt="Owame by newachi"></div>
+          <h3>Lockup</h3>
+          <p class="note">Pie y firma. Endoso textual de newachi.</p>
+        </article>
+        <article class="card c4 reveal">
+          <div class="logo-plate petrol"><img src="../../../Identidad_marca/owame/logos-propuesta/wordmarks/owame-wordmark-Owame-white.svg" alt="Owame en blanco"></div>
+          <h3>Sobre petróleo</h3>
+          <p class="note">Para banda oscura o foto oscura.</p>
+        </article>
+        <article class="card c4 reveal">
+          <div class="logo-plate white"><img src="../../../Identidad_marca/owame/logos-propuesta/wordmarks/owame-favicon-o.svg" alt="Favicon letra o" width="64" height="64"></div>
+          <h3>Favicon</h3>
+          <p class="note">La letra o en squircle. Sin estetoscopio.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="paleta">
+    <div class="wrap">
+      <p class="kicker">Paleta · no se inventan hex</p>
+      <h2>Combinaciones que pasan a texto</h2>
+      <p class="note">El teal claro y el coral no se usan como texto corrido: no sostienen el contraste. El teal oscuro sí sirve para enlaces. El coral es un punto, no un párrafo. El foco no depende solo del color: anillo de 3 px más el borde.</p>
+      <div class="grid-12" style="margin-top:24px">
+        <div class="swatch c3" style="background:#2C4A52;color:#fff"><b>Petróleo</b><span>#2C4A52 · texto blanco AA</span></div>
+        <div class="swatch c3" style="background:#F2EEE3;color:#2C4A52;border-color:#E4DFD2"><b>Crema</b><span>#F2EEE3 · texto petróleo</span></div>
+        <div class="swatch c3" style="background:#fff;color:#1A1A1A;border:1px solid #E4DFD2"><b>Blanco</b><span>#FFFFFF · texto ink</span></div>
+        <div class="swatch c3" style="background:#1E7A6B;color:#fff"><b>Teal oscuro</b><span>#1E7A6B · enlaces</span></div>
+        <div class="swatch c3" style="background:#2F9E8F;color:#1A1A1A"><b>Teal</b><span>#2F9E8F · no es texto</span></div>
+        <div class="swatch c3" style="background:#F2621F;color:#1A1A1A"><b>Coral</b><span>#F2621F · ≤5 %, un punto</span></div>
+        <div class="swatch c3" style="background:#C74E15;color:#fff"><b>Coral oscuro</b><span>#C74E15 · botón urgente</span></div>
+        <div class="swatch c3" style="background:#5C6B6F;color:#fff"><b>Muted</b><span>#5C6B6F · captions</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="temas">
+    <div class="wrap">
+      <p class="kicker">Temas con la misma paleta</p>
+      <h2>Cuatro tarjetas, cuatro superficies</h2>
+      <p class="note">No son marcas distintas. Son el mismo producto en crema, blanco, petróleo y duotono. La landing puede alternar crema y blanco. El petróleo se reserva a una banda, no a toda la página.</p>
+      <div class="grid-12" style="margin-top:24px">
+        <article class="theme t-crema c6">
+          <p class="kicker"><span class="dot"></span>Tema crema · vigente</p>
+          <h3>Que la práctica no te quite la consulta.</h3>
+          <p>Agenda, expediente y cobro en el mismo lugar.</p>
+          <a class="btn" href="#acceso">Solicitar acceso</a>
+        </article>
+        <article class="theme t-blanco c6">
+          <p class="kicker">Tema blanco · fichas</p>
+          <h3>La ficha vuelve al centro del día.</h3>
+          <p>Superficie de tarjeta. Borde mist de 1 px y sombra baja.</p>
+          <button class="btn ghost" type="button">Iniciar sesión</button>
+        </article>
+        <article class="theme t-petrol c6">
+          <p class="kicker"><span class="dot"></span>Tema petróleo · una banda</p>
+          <h3>El día clínico, de un vistazo.</h3>
+          <p>Texto crema sobre petróleo. El coral solo marca el paso.</p>
+          <a class="btn" style="background:#F2EEE3;color:#2C4A52" href="#acceso">Solicitar acceso</a>
+        </article>
+        <article class="theme t-duo c6">
+          <p class="kicker">Tema duotono · estudio</p>
+          <h3><span class="a">owa</span><span class="b">me</span></h3>
+          <p>Sirve en un logo o en una palabra. No en todos los títulos.</p>
+          <button class="btn" type="button" disabled>No mezclar con el vigente</button>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="tipo">
+    <div class="wrap">
+      <p class="kicker">Tipografía</p>
+      <h2>Poppins es el par vigente</h2>
+      <p class="lead" style="font-family:Poppins,sans-serif">Cuerpo en Poppins Regular, 16–18 px, line-height 1.5, medida de 65 caracteres. Titulares ExtraBold. Escala 1.250: 16, 20, 25, 31, 39, 49. El 49 cae en el rango de 48–56 del brief.</p>
+      <div class="scale" aria-hidden="true">
+        <span style="font-size:16px">16</span>
+        <span style="font-size:20px">20</span>
+        <span style="font-size:25px">25</span>
+        <span style="font-size:31px;font-weight:600">31</span>
+        <span style="font-size:39px;font-weight:800;color:#2C4A52">39</span>
+        <span style="font-size:49px;font-weight:800;color:#2C4A52">49</span>
+      </div>
+      <h3 style="margin-top:32px">Estudios de pares para salud</h3>
+      <p class="note">Contorno coral: no están aprobados. Sirven para comparar. Si uno convence, hace falta VoBo antes de tocar la landing.</p>
+      <div class="grid-12" style="margin-top:16px">
+        <article class="pair study c4">
+          <p class="eye">Serif humanista + sans</p>
+          <p style="font-family:Fraunces,serif;font-size:1.75rem;font-weight:560;margin:8px 0;color:#2C4A52">Fraunces</p>
+          <p style="font-family:Inter,sans-serif;margin:0">Inter en el cuerpo. Óptico, alto de x cómodo.</p>
+        </article>
+        <article class="pair study c4">
+          <p class="eye">Serif de transición + sans</p>
+          <p style="font-family:'Source Serif 4',serif;font-size:1.75rem;font-weight:560;margin:8px 0;color:#2C4A52">Source Serif</p>
+          <p style="font-family:'Source Sans 3',sans-serif;margin:0">Source Sans en el cuerpo. Misma familia.</p>
+        </article>
+        <article class="pair study c4">
+          <p class="eye">Serif editorial + sans</p>
+          <p style="font-family:Newsreader,serif;font-size:1.75rem;font-weight:560;margin:8px 0;color:#2C4A52">Newsreader</p>
+          <p style="font-family:'DM Sans',sans-serif;margin:0">DM Sans en el cuerpo.</p>
+        </article>
+        <article class="pair c4">
+          <p class="eye">Sans geométrica vigente</p>
+          <p style="font-family:Poppins,sans-serif;font-size:1.75rem;font-weight:800;margin:8px 0;color:#2C4A52">Poppins</p>
+          <p style="font-family:Poppins,sans-serif;margin:0">Titular y cuerpo. Máximo dos familias: esta e IBM Plex Mono para datos.</p>
+        </article>
+        <article class="pair study c4">
+          <p class="eye">Grotesca legible</p>
+          <p style="font-family:'Instrument Sans',sans-serif;font-size:1.75rem;font-weight:600;margin:8px 0;color:#2C4A52">Instrument Sans</p>
+          <p style="font-family:'Instrument Sans',sans-serif;margin:0">Una sola sans, sin serif. Estudio.</p>
+        </article>
+        <article class="pair c4">
+          <p class="eye">Escala modular</p>
+          <p style="margin:8px 0">1.125 menor · 1.200 mayor segunda · <strong>1.250 mayor tercera</strong> · 1.333 perfecta cuarta.</p>
+          <p class="note">Para esta landing, 1.250. Tracking suelto solo en el eyebrow (+2 %).</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="reticula">
+    <div class="wrap">
+      <p class="kicker">Retícula y ritmo</p>
+      <h2>12 columnas, baseline de 8</h2>
+      <p class="note">Contenedor 1200 px, hueco 24 px, margen de lienzo 120 px en 1440. Escala de espacio: 4, 8, 12, 16, 24, 32, 48, 64, 96. Radios: 4, 8, 12, 16. Borde de 1 px. Sombra baja. El desenfoque del fondo solo en la barra fija, 8 px.</p>
+      <div class="ruler" style="margin:24px 0" aria-hidden="true">
+        <i style="height:8px">4</i><i style="height:16px">8</i><i style="height:24px">12</i><i style="height:32px">16</i><i style="height:48px">24</i><i style="height:64px">32</i><i style="height:80px">48</i><i style="height:96px">64</i>
+      </div>
+      <div class="grid-12">
+        <div class="card c3"><strong>Cuarto</strong><p class="note">282 px. Highlight.</p></div>
+        <div class="card c3"><strong>Cuarto</strong><p class="note">Misma altura.</p></div>
+        <div class="card c3"><strong>Cuarto</strong><p class="note">Proximidad.</p></div>
+        <div class="card c3"><strong>Cuarto</strong><p class="note">Semejanza.</p></div>
+        <div class="card c8"><strong>Ocho columnas</strong><p class="note">Bloque denso: funciones. El de al lado respira.</p></div>
+        <div class="card c4"><strong>Compacto</strong><p class="note">Un dato, no un párrafo.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="prueba">
+    <div class="wrap">
+      <p class="kicker">Prueba social</p>
+      <h2>Hueco, no cita inventada</h2>
+      <div class="card empty">
+        <h3>[ASK] Clínicas que ya usan owame</h3>
+        <p>Sin logos ni cifras hasta tener el dato. Esta franja existe en el esqueleto y hoy está vacía a propósito.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="comparar">
+    <div class="wrap">
+      <p class="kicker">Tabla</p>
+      <h2>Contra el día de hoy, no contra un ranking</h2>
+      <table>
+        <thead>
+          <tr><th></th><th>Directorio de citas</th><th>Expediente suelto</th><th>owame</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Empieza cuando</th><td>Alguien busca médico</td><td>Hay que guardar la nota</td><td>El paciente ya es de la práctica</td></tr>
+          <tr><th>Agenda</th><td>Pública</td><td>Aparte</td><td>Del equipo, semanal y diaria</td></tr>
+          <tr><th>Cobro</th><td>Fuera</td><td>Fuera</td><td>En el mismo flujo</td></tr>
+          <tr><th>Decisión clínica</th><td colspan="3">Siempre del profesional. owame no diagnostica.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="band" id="pasos">
+    <div class="wrap">
+      <p class="kicker">Stepper</p>
+      <h2>Del interés al acceso</h2>
+      <ol class="steps">
+        <li><strong>1</strong><br>Cuenta el día de la práctica</li>
+        <li class="now"><strong>2 · ahora</strong><br>Solicitar acceso</li>
+        <li><strong>3</strong><br>Conversación y demo de 15 min</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="band" id="estados">
+    <div class="wrap">
+      <p class="kicker">Estados del botón</p>
+      <h2>No solo el color</h2>
+      <p style="display:flex;flex-wrap:wrap;gap:12px">
+        <button class="btn" type="button">Default</button>
+        <button class="btn" type="button">Hover y foco</button>
+        <button class="btn" type="button" disabled>Deshabilitado</button>
+        <button class="btn loading" type="button" aria-busy="true">Cargando</button>
+      </p>
+      <div class="grid-12" style="margin-top:24px">
+        <article class="card err c6">
+          <h3>Error</h3>
+          <p>Icono más texto. Ejemplo: falta el correo. El borde coral oscuro no es el único aviso.</p>
+        </article>
+        <article class="card empty c6">
+          <h3>Vacío</h3>
+          <p>[ASK] testimonio. Sin nombre ni frase prestada.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="faq">
+    <div class="wrap" style="max-width:792px">
+      <p class="kicker">Acordeón</p>
+      <h2>Preguntas</h2>
+      <details open>
+        <summary>¿Esta página reemplaza el índice?</summary>
+        <p>No. El índice final sale del wireframe <code>index_template.html</code>. Esto solo compara logos, superficies y tipo.</p>
+      </details>
+      <details>
+        <summary>¿Se puede usar Fraunces en la landing?</summary>
+        <p>Todavía no. Poppins es el par vigente. Un cambio de familia pide VoBo.</p>
+      </details>
+      <details>
+        <summary>¿El teal puede ir en un párrafo?</summary>
+        <p>No. Acento e icono. El enlace va en teal oscuro.</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="band" id="acceso">
+    <div class="wrap" style="max-width:588px">
+      <p class="kicker">Formulario mínimo</p>
+      <h2>Solicitar acceso</h2>
+      <form class="card" action="#" method="post">
+        <p><label for="n">Nombre<br><input id="n" name="nombre" required style="width:100%;min-height:44px;margin-top:4px;border:1px solid #E4DFD2;border-radius:8px;padding:8px 12px;font:inherit"></label></p>
+        <p><label for="c">Correo o WhatsApp<br><input id="c" name="contacto" required style="width:100%;min-height:44px;margin-top:4px;border:1px solid #E4DFD2;border-radius:8px;padding:8px 12px;font:inherit"></label></p>
+        <p><label for="q">¿Dónde se te va el día?<br>
+          <select id="q" name="reto" style="width:100%;min-height:44px;margin-top:4px;border:1px solid #E4DFD2;border-radius:8px;padding:8px 12px;font:inherit">
+            <option>Agenda</option><option>Expediente</option><option>Cobro</option><option>Coordinación</option>
+          </select></label></p>
+        <p class="note"><label><input type="checkbox" required> Acepto el aviso de privacidad</label></p>
+        <button class="btn" type="submit">Solicitar acceso</button>
+        <p class="note">Después: te escribimos para una conversación corta. No hay cargo.</p>
+      </form>
+    </div>
+  </section>
+
+  <div class="sticky-cta">
+    <div class="wrap">
+      <strong>owame by newachi</strong>
+      <a class="btn" href="#acceso">Solicitar acceso</a>
+    </div>
+  </div>
+</body>
+</html>
