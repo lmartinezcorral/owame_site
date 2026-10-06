@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Ingresar a tu demo | Owame</title>
+  <meta name="theme-color" content="#2C4A52">
+  <link rel="icon" href="../../assets/imagenes/owame_isologo.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --petrol: #2c4a52; --cream: #f2eee3; --ink: #1a1a1a; --muted: #5c6b6f; --mist: #e4dfd2; --coral: #f2621f; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: var(--cream); color: var(--ink); font-family: Poppins, system-ui, sans-serif; }
+    a { color: #1e7a6b; }
+    :focus-visible { outline: 3px solid var(--coral); outline-offset: 3px; }
+    header, main, footer { width: min(100% - 2rem, 32rem); margin: 0 auto; }
+    header { padding: 1.5rem 0 0; }
+    header img { height: 2rem; width: auto; }
+    main { padding: 2.5rem 0 3rem; }
+    h1 { font-size: 1.5rem; color: var(--petrol); margin: 0 0 0.5rem; }
+    label { display: block; margin: 0.9rem 0 0.35rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+    input {
+      width: 100%; min-height: 2.75rem; border-radius: 0.8rem; border: 1px solid var(--mist);
+      background: #fff; padding: 0.65rem 0.9rem; font: inherit; color: var(--ink);
+    }
+    button {
+      width: 100%; min-height: 2.75rem; margin-top: 1.25rem; border: 0; border-radius: 999px;
+      background: var(--petrol); color: var(--cream); font: inherit; font-weight: 600; cursor: pointer;
+    }
+    .hint, footer { color: var(--muted); font-size: 0.85rem; }
+    .err { color: #9b3412; }
+    footer { padding-bottom: 2rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/"><img src="../../assets/imagenes/owame_hrztal_clr.png" alt="Owame" width="1442" height="290"></a>
+  </header>
+  <main>
+    <h1>Ingresar a tu demo</h1>
+    <p class="hint">Accede al entorno de prueba con el código que recibiste por correo.</p>
+    <form id="demoSignInForm">
+      <p id="demoSignInAlert" class="err" hidden></p>
+      <label for="demoSlug">Código de tu práctica demo</label>
+      <input type="text" id="demoSlug" name="slug" required placeholder="demo-abc123" autocomplete="off" spellcheck="false">
+      <p class="hint">Lo encontrarás en el correo que te enviamos al iniciar la demo.</p>
+      <label for="demoEmail">Correo</label>
+      <input type="email" id="demoEmail" name="email" required autocomplete="username">
+      <label for="demoPassword">Contraseña</label>
+      <input type="password" id="demoPassword" name="password" required value="Demo1234!" autocomplete="current-password">
+      <p class="hint">Contraseña demo por defecto: Demo1234!</p>
+      <button type="submit" id="demoSignInBtn">Entrar a la demo</button>
+    </form>
+    <p class="hint">¿Aún no tienes demo? <a href="/?probar=1">Solicitar demo</a><br>¿Ya tienes cuenta de clínica? <a href="/app/sign-in.html">Iniciar sesión</a></p>
+  </main>
+  <footer>
+    <p>Owame es software de gestión de newachi. No sustituye al profesional tratante.</p>
+  </footer>
+  <script>
+  (function () {
+    var params = new URLSearchParams(window.location.search);
+    var slugEl = document.getElementById('demoSlug');
+    var emailEl = document.getElementById('demoEmail');
+    var passEl = document.getElementById('demoPassword');
+    var form = document.getElementById('demoSignInForm');
+    var alertEl = document.getElementById('demoSignInAlert');
+    var btn = document.getElementById('demoSignInBtn');
+    var slugFromUrl = (params.get('slug') || '').trim();
+    var emailFromUrl = (params.get('email') || '').trim();
+    if (slugFromUrl) slugEl.value = slugFromUrl;
+    if (emailFromUrl) emailEl.value = emailFromUrl;
+
+    function showError(text) {
+      alertEl.hidden = false;
+      alertEl.textContent = text;
+    }
+
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      alertEl.hidden = true;
+      btn.disabled = true;
+      var slug = String(slugEl.value || '').trim().toLowerCase();
+      var email = String(emailEl.value || '').trim();
+      var password = String(passEl.value || '');
+      fetch('/api/v1/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tenantSlug: slug, email: email, password: password })
+      })
+        .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
+        .then(function (res) {
+          if (!res.ok || !res.data.accessToken) {
+            showError(res.data.error || 'No pudimos iniciar sesión. Revisa código, correo y contraseña.');
+            return;
+          }
+          var json = res.data;
+          var u = json.user || {};
+          localStorage.setItem('MOBILITY_ACCESS_TOKEN', json.accessToken);
+          localStorage.setItem('MOBILITY_REFRESH_TOKEN', json.refreshToken);
+          localStorage.setItem('MOBILITY_TENANT_ID', u.tenantId || '');
+          localStorage.setItem('MOBILITY_USER_ID', u.id || '');
+          localStorage.setItem('MOBILITY_USER_ROL', u.rolActivo || u.rol || '');
+          localStorage.setItem('MOBILITY_USER_ROLES', JSON.stringify(u.roles || []));
+          localStorage.setItem('MOBILITY_USER_ROLES_ACTIVE', u.rolActivo || u.rol || '');
+          localStorage.setItem('MOBILITY_USER_EMAIL', u.email || '');
+          localStorage.setItem('MOBILITY_USER_DISPLAY', ((u.nombre || '') + ' ' + (u.apellido || '')).trim());
+          localStorage.setItem('MOBILITY_TENANT_SLUG', slug);
+          localStorage.setItem('MOBILITY_TENANT_IS_DEMO', u.isDemo ? 'true' : 'false');
+          try { sessionStorage.removeItem('MOBILITY_SESSION_ENDED'); } catch (e) {}
+          window.location.replace('/app/dashboard.html');
+        })
+        .catch(function () {
+          showError('Error de conexión. Intenta de nuevo.');
+        })
+        .finally(function () {
+          btn.disabled = false;
+        });
+    });
+  })();
+  </script>
+</body>
+</html>

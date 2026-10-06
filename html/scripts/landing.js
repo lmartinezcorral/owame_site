@@ -81,6 +81,10 @@
       openDemo();
     });
   });
+  var openOnLoad =
+    new URLSearchParams(window.location.search).get("probar") === "1" ||
+    window.location.hash === "#demo";
+  if (openOnLoad) openDemo();
   demo.querySelectorAll("[data-close-demo]").forEach(function (el) {
     el.addEventListener("click", closeDemo);
   });
@@ -94,15 +98,49 @@
   form.addEventListener("submit", function (event) {
     event.preventDefault();
     var data = new FormData(form);
-    var body = [
-      "Nombre: " + data.get("nombre"),
-      "Correo: " + data.get("correo"),
-      "Práctica: " + data.get("practica"),
-      "",
-      "Solicitud de demo de Owame."
-    ].join("\n");
-    status.textContent = "Se abre tu correo para enviar la solicitud a contacto@newachi.mx.";
-    window.location.href = "mailto:contacto@newachi.mx?subject=" +
-      encodeURIComponent("Demo Owame") + "&body=" + encodeURIComponent(body);
+    var honeypot = String(data.get("website") || "");
+    var rol = String(data.get("rol") || "").trim();
+    var telefono = String(data.get("telefono") || "").trim();
+    var clinica = String(data.get("nombreClinica") || "").trim();
+    var payload = {
+      nombre: String(data.get("nombre") || "").trim(),
+      email: String(data.get("email") || "").trim(),
+      consentPrivacy: true,
+      consentMarketing: false,
+      consentPrivacyVersion: "2026-07-01",
+      honeypot: honeypot
+    };
+    if (telefono) payload.telefono = telefono;
+    if (rol) payload.rol = rol;
+    if (clinica) payload.nombreClinica = clinica;
+    var button = form.querySelector("button[type=submit]");
+    if (button) button.disabled = true;
+    status.textContent = "Registrando la solicitud…";
+    fetch("/api/v1/public/leads", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    })
+      .then(function (res) {
+        return res.json().then(function (body) {
+          return { ok: res.ok, status: res.status, body: body };
+        });
+      })
+      .then(function (result) {
+        if (result.status === 201 || result.status === 409) {
+          var leadId = result.body && result.body.leadId ? result.body.leadId : "";
+          var dest = "/saas/demo/";
+          if (leadId) dest += "?leadId=" + encodeURIComponent(leadId);
+          window.location.href = dest;
+          return;
+        }
+        var msg = (result.body && result.body.error) || "No pudimos registrar tu solicitud. Intenta de nuevo.";
+        status.textContent = msg;
+        if (button) button.disabled = false;
+      })
+      .catch(function () {
+        status.textContent = "No pudimos registrar tu solicitud. Revisa tu conexión e intenta de nuevo.";
+        if (button) button.disabled = false;
+      });
   });
 })();

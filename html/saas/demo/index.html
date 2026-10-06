@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Iniciar demo | Owame</title>
+  <meta name="theme-color" content="#2C4A52">
+  <link rel="icon" href="../../assets/imagenes/owame_isologo.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --petrol: #2c4a52; --cream: #f2eee3; --ink: #1a1a1a; --muted: #5c6b6f; --coral: #f2621f; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: var(--cream); color: var(--ink); font-family: Poppins, system-ui, sans-serif; }
+    a { color: #1e7a6b; }
+    :focus-visible { outline: 3px solid var(--coral); outline-offset: 3px; }
+    header, main, footer { width: min(100% - 2rem, 40rem); margin: 0 auto; }
+    header { padding: 1.5rem 0 0; }
+    header img { height: 2rem; width: auto; background: var(--cream); }
+    main { padding: 2.5rem 0 3rem; }
+    h1 { font-size: 1.75rem; line-height: 1.15; color: var(--petrol); margin: 0 0 0.75rem; }
+    p { line-height: 1.5; }
+    .muted { color: var(--muted); }
+    button {
+      min-height: 2.75rem; padding: 0 1.25rem; border: 0; border-radius: 999px;
+      background: var(--petrol); color: var(--cream); font: inherit; font-weight: 600; cursor: pointer;
+    }
+    button:disabled { opacity: 0.7; }
+    .err { color: #9b3412; }
+    footer { padding-bottom: 2rem; font-size: 0.85rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/"><img src="../../assets/imagenes/owame_hrztal_clr.png" alt="Owame" width="1442" height="290"></a>
+  </header>
+  <main>
+    <h1>Tu demo guiada está lista</h1>
+    <p>Crearemos un entorno de prueba temporal (24 h) con datos de ejemplo para explorar Owame. Entrarás como administrador.</p>
+    <p class="muted">Contraseña demo: <code>Demo1234!</code> — válida 4 horas.</p>
+    <p class="muted">Te enviaremos un correo con tus credenciales por si cierras el navegador.</p>
+    <button type="button" id="btnStartDemo">Iniciar demo</button>
+    <div id="demoGateMessage" class="muted" role="status"></div>
+    <p><a href="/">Volver al inicio</a> · <a href="sign-in.html">Ya tengo credenciales</a></p>
+  </main>
+  <footer>
+    <p>Owame es software de gestión de newachi. No diagnostica, no prescribe ni sustituye al profesional tratante.</p>
+  </footer>
+  <script>
+  (function () {
+    var params = new URLSearchParams(window.location.search);
+    var leadId = params.get('leadId') || '';
+    var msg = document.getElementById('demoGateMessage');
+    var btn = document.getElementById('btnStartDemo');
+
+    if (!leadId) {
+      window.location.replace('/?probar=1');
+      return;
+    }
+
+    function showError(text) {
+      if (!msg) return;
+      msg.textContent = text;
+      msg.className = 'err';
+    }
+
+    function showReentry(text, url) {
+      if (!msg) return;
+      msg.className = 'muted';
+      msg.textContent = '';
+      msg.appendChild(document.createTextNode(text + ' '));
+      if (url) {
+        var a = document.createElement('a');
+        a.href = url;
+        a.textContent = 'Entrar con tus credenciales';
+        msg.appendChild(a);
+      }
+    }
+
+    function applySession(json) {
+      var roles = (json.user && json.user.roles) || ['admin_clinica', 'terapeuta', 'recepcionista'];
+      var rolActivo = (json.user && (json.user.rolActivo || json.user.rol)) || roles[0];
+      localStorage.setItem('MOBILITY_ACCESS_TOKEN', json.accessToken);
+      localStorage.setItem('MOBILITY_REFRESH_TOKEN', json.refreshToken);
+      localStorage.setItem('MOBILITY_TENANT_ID', json.user.tenantId || '');
+      localStorage.setItem('MOBILITY_USER_ID', json.user.id || '');
+      localStorage.setItem('MOBILITY_USER_ROL', rolActivo);
+      localStorage.setItem('MOBILITY_USER_ROLES', JSON.stringify(roles));
+      localStorage.setItem('MOBILITY_USER_ROLES_ACTIVE', rolActivo);
+      localStorage.setItem('MOBILITY_USER_EMAIL', json.user.email || '');
+      localStorage.setItem('MOBILITY_USER_DISPLAY', (json.user.nombre || '') + ' ' + (json.user.apellido || ''));
+      localStorage.setItem('MOBILITY_TENANT_SLUG', json.user.tenantSlug || json.tenantSlug || '');
+      localStorage.setItem('MOBILITY_TENANT_IS_DEMO', 'true');
+      try { sessionStorage.removeItem('MOBILITY_SESSION_ENDED'); } catch (e) {}
+      window.location.replace('/app/dashboard.html?tour=1');
+    }
+
+    btn.addEventListener('click', function () {
+      btn.disabled = true;
+      btn.textContent = 'Preparando entorno…';
+      fetch('/api/v1/public/demo/start', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ leadId: leadId })
+      })
+        .then(function (r) { return r.json().then(function (d) { return { status: r.status, data: d }; }); })
+        .then(function (res) {
+          if (res.status === 201 && res.data.accessToken) {
+            applySession(res.data);
+            return;
+          }
+          if (res.status === 409) {
+            showReentry(
+              res.data.error || 'Ya tienes una demo reciente.',
+              res.data.demoSignInUrl || '/saas/demo/sign-in.html'
+            );
+            return;
+          }
+          showError((res.data && res.data.error) || 'No pudimos iniciar la demo.');
+        })
+        .catch(function () {
+          showError('Error de conexión. Intenta de nuevo.');
+        })
+        .finally(function () {
+          btn.disabled = false;
+          btn.textContent = 'Iniciar demo';
+        });
+    });
+  })();
+  </script>
+</body>
+</html>

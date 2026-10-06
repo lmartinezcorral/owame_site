@@ -22,7 +22,7 @@ html { font-size: 16px; scroll-behavior: auto; }
 @media (max-width: 1440px) { html { font-size: 1.111111vw; } }
 @media (max-width: 1024px) { html { font-size: 1.5625vw; } }
 @media (max-width: 640px) { html { font-size: 4.444444vw; } }
-@media (min-width: 1921px) { html { font-size: 0.833333vw; } }
+@media (min-width: 1441px) { html { font-size: 1.111111vw; } }
 
 body {
   min-height: 100vh;
@@ -136,7 +136,7 @@ h2, .display {
   padding: 1.1rem 1.1rem 0;
 }
 @media (min-width: 640px) { .site-header { padding: 1.5rem 2rem 0; } }
-.nav-left { display: none; flex: 1; align-items: center; gap: 1.5rem; font-size: 0.85rem; font-weight: 600; }
+.nav-left { display: none; flex: 1; align-items: center; gap: 1.5rem; font-size: 1.15rem; font-weight: 600; }
 @media (min-width: 1024px) { .nav-left { display: flex; } }
 .nav-left a { color: var(--cream); min-height: 2.75rem; display: inline-flex; align-items: center; }
 .brand-slot { flex: 1; display: flex; justify-content: center; }
@@ -150,15 +150,15 @@ h2, .display {
 .header-right { flex: 1; display: flex; justify-content: flex-end; align-items: center; gap: 0.65rem; }
 .sign-link {
   display: none; align-items: center; min-height: 2.75rem;
-  color: var(--cream); font-size: 0.8rem; font-weight: 600;
+  color: var(--cream); font-size: 1.15rem; font-weight: 600;
 }
 @media (min-width: 640px) { .sign-link { display: inline-flex; } }
 .book-link {
   min-height: 2.75rem; padding: 0 0.9rem;
   border-radius: 999px; background: var(--cream); color: var(--petrol);
-  font-size: 0.8rem; font-weight: 600;
+  font-size: 1.05rem; font-weight: 600;
 }
-@media (min-width: 640px) { .book-link { padding: 0 1.15rem; font-size: 0.85rem; } }
+@media (min-width: 640px) { .book-link { padding: 0 1.15rem; font-size: 1.15rem; } }
 .burger {
   width: 2.75rem; height: 2.75rem; border-radius: 999px;
   background: rgba(242, 238, 227, 0.18);
@@ -189,11 +189,11 @@ h2, .display {
   color: var(--cream);
 }
 .hero-gloss { font-size: 1rem; font-weight: 600; line-height: 1.45; }
-.hero-copy { font-size: 0.95rem; font-weight: 400; line-height: 1.55; color: rgba(242, 238, 227, 0.92); }
+.hero-copy { font-size: 1.2rem; font-weight: 400; line-height: 1.45; color: rgba(242, 238, 227, 0.92); }
 @media (min-width: 640px) {
   .hero-gloss, .hero-copy { margin-left: 2.25rem; }
-  .hero-gloss { font-size: 1.15rem; }
-  .hero-copy { font-size: 1.05rem; }
+  .hero-gloss { font-size: 1.35rem; }
+  .hero-copy { font-size: 1.55rem; }
 }
 
 .hero-bottom {
@@ -302,12 +302,6 @@ h2, .display {
 .menu-nav { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 0.35rem; }
 .menu-nav a { font-size: 2.4rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; min-height: 2.75rem; }
 @media (min-width: 640px) { .menu-nav a { font-size: 3.5rem; } }
-.menu-nav a.menu-session {
-  margin-top: 0.85rem;
-  font-size: 1.15rem; font-weight: 600; letter-spacing: 0;
-  color: rgba(242, 238, 227, 0.82);
-}
-@media (min-width: 640px) { .menu-nav a.menu-session { font-size: 1.35rem; } }
 .icon-btn {
   width: 2.75rem; height: 2.75rem; border-radius: 999px;
   display: grid; place-items: center; background: rgba(242, 238, 227, 0.15); color: var(--cream);
@@ -338,6 +332,7 @@ h2, .display {
 .visit-form { margin-top: 1.25rem; display: flex; flex-direction: column; gap: 0.85rem; }
 .field { display: flex; flex-direction: column; gap: 0.35rem; }
 .field span { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 .field input, .field select {
   width: 100%; min-height: 2.75rem; border-radius: 0.8rem; border: 1px solid var(--mist);
   background: var(--white); padding: 0.65rem 0.9rem; font: inherit; color: var(--ink);

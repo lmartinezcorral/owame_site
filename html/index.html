@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/landing.css?v=5">
+  <link rel="stylesheet" href="css/landing.css?v=6">
 </head>
 <body>
   <a class="skip" href="#contenido">Saltar al contenido</a>
@@ -55,11 +55,11 @@
       <p class="hero-copy">Mejoramos la experiencia de atender pacientes. Owame ordena la complejidad real de una clínica en cada etapa de la atención y la reúne en una sola plataforma: expediente clínico digital, agenda, recetas, cobro y administración.</p>
       <div class="hero-bottom">
         <ul class="tagline stack">
-          <li><span class="clip"><span class="clip-inner">expediente clínico digital</span></span></li>
-          <li><span class="clip"><span class="clip-inner">agenda</span></span></li>
-          <li><span class="clip"><span class="clip-inner">recetas</span></span></li>
-          <li><span class="clip"><span class="clip-inner">cobro</span></span></li>
-          <li><span class="clip"><span class="clip-inner">administración</span></span></li>
+          <li><span class="clip"><span class="clip-inner">Expediente clínico digital</span></span></li>
+          <li><span class="clip"><span class="clip-inner">Agenda</span></span></li>
+          <li><span class="clip"><span class="clip-inner">Recetas</span></span></li>
+          <li><span class="clip"><span class="clip-inner">Cobro</span></span></li>
+          <li><span class="clip"><span class="clip-inner">Administración</span></span></li>
         </ul>
       </div>
     </section>
@@ -137,7 +137,7 @@
       <p>Owame by newachi. Hecho en México, por una casa de producto que también opera una clínica.</p>
       <div class="cta-row">
         <button type="button" class="pill light" data-open-demo>Probar demo</button>
-        <p class="after">Se abre tu correo con la solicitud. Te escribimos para recorrer agenda, expediente y cobro. No hay cargo.</p>
+        <p class="after">Dejas tu nombre y correo. Se abre la demo. No hay cargo.</p>
       </div>
     </section>
 
@@ -174,7 +174,7 @@
         <a href="#precios">Precios</a>
         <a href="#origen">Origen</a>
         <a href="#demo" data-open-demo>Probar demo</a>
-        <a class="menu-session" href="/app/sign-in.html">Iniciar sesión</a>
+        <a href="/app/sign-in.html">Iniciar sesión</a>
       </nav>
     </div>
   </div>
@@ -191,21 +191,28 @@
           <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
         </button>
       </div>
-      <p>Cuéntanos quién eres. Abrimos un correo a newachi para agendar el recorrido: agenda, expediente y cobro.</p>
+      <p>Cuéntanos quién eres. Registramos la solicitud y abrimos la demo: agenda, expediente y cobro.</p>
       <form class="visit-form" id="demoForm">
-        <label class="field"><span>Nombre</span><input name="nombre" type="text" required maxlength="120" autocomplete="name"></label>
-        <label class="field"><span>Correo</span><input name="correo" type="email" required maxlength="160" autocomplete="email"></label>
+        <div class="hp-field" aria-hidden="true">
+          <label for="website">Website</label>
+          <input type="text" name="website" id="website" tabindex="-1" autocomplete="off">
+        </div>
+        <label class="field"><span>Nombre</span><input name="nombre" type="text" required maxlength="200" autocomplete="name"></label>
+        <label class="field"><span>Correo</span><input name="email" type="email" required maxlength="255" autocomplete="email"></label>
+        <label class="field"><span>Teléfono</span><input name="telefono" type="tel" maxlength="40" autocomplete="tel" placeholder="+52…"></label>
         <label class="field">
-          <span>Tu práctica</span>
-          <select name="practica" required>
-            <option value="">Elige una</option>
-            <option>Consulta independiente</option>
-            <option>Clínica con equipo</option>
-            <option>Otra práctica ambulatoria</option>
+          <span>Tu rol</span>
+          <select name="rol">
+            <option value="">Selecciona…</option>
+            <option value="dueno">Dueño / director</option>
+            <option value="fisioterapeuta">Fisioterapeuta</option>
+            <option value="recepcion">Recepción</option>
+            <option value="otro">Otro</option>
           </select>
         </label>
+        <label class="field"><span>Nombre de la clínica</span><input name="nombreClinica" type="text" maxlength="200" autocomplete="organization"></label>
         <label class="consent">
-          <input name="aviso" type="checkbox" required>
+          <input name="consentPrivacy" type="checkbox" required>
           <span>Acepto que usen mi nombre y correo solo para agendar esta demo.</span>
         </label>
         <button class="pill" type="submit">Enviar solicitud</button>
@@ -214,6 +221,6 @@
     </div>
   </div>
 
-  <script src="scripts/landing.js?v=2"></script>
+  <script src="scripts/landing.js?v=3"></script>
 </body>
 </html>
