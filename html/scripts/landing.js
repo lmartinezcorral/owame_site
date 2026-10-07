@@ -89,6 +89,74 @@
     el.addEventListener("click", closeDemo);
   });
 
+  var slides = [
+    { src: "assets/imagenes/18.png", alt: "Manos sobre una laptop con un calendario y una lista ilustrados.", label: "Agenda" },
+    { src: "assets/imagenes/16.png", alt: "Profesional con bata frente a una laptop y marcas de verificación ilustradas.", label: "Cobro" },
+    { src: "assets/imagenes/15.png", alt: "Profesional con bata señalando iconos clínicos ilustrados.", label: "Administración clínica" },
+    { src: "assets/imagenes/2.png", alt: "Persona con un teléfono y una laptop, con un gráfico de asistencia ilustrado.", label: "Recetas" },
+    { src: "assets/imagenes/11.png", alt: "Profesional en consulta señalando un panel de signos ilustrado, con laptop y tableta.", label: "Expediente clínico digital" }
+  ];
+  var paseImg = document.getElementById("paseImg");
+  var paseCap = document.getElementById("paseCap");
+  var paseDots = document.getElementById("paseDots");
+  var paseIndex = 0;
+  var paseTimer = 0;
+  var paseWait = null;
+  function paintSlide() {
+    var slide = slides[paseIndex];
+    paseImg.src = slide.src;
+    paseImg.alt = slide.alt;
+    if (paseCap) paseCap.textContent = slide.label;
+    if (!paseDots) return;
+    paseDots.querySelectorAll("button").forEach(function (dot, n) {
+      if (n === paseIndex) dot.setAttribute("aria-current", "true");
+      else dot.removeAttribute("aria-current");
+    });
+  }
+  function showSlide(next) {
+    if (!paseImg) return;
+    var target = (next + slides.length) % slides.length;
+    function apply() {
+      paseIndex = target;
+      paintSlide();
+      paseImg.classList.remove("is-out");
+    }
+    if (reduce) {
+      apply();
+      return;
+    }
+    window.clearTimeout(paseWait);
+    paseImg.classList.add("is-out");
+    paseWait = window.setTimeout(apply, 280);
+  }
+  function armPase() {
+    window.clearInterval(paseTimer);
+    if (reduce || !paseImg) return;
+    paseTimer = window.setInterval(function () { showSlide(paseIndex + 1); }, 4200);
+  }
+  if (paseDots && paseImg) {
+    slides.forEach(function (slide, n) {
+      var dot = document.createElement("button");
+      dot.type = "button";
+      dot.setAttribute("aria-label", slide.label);
+      if (n === 0) dot.setAttribute("aria-current", "true");
+      dot.addEventListener("click", function () { showSlide(n); armPase(); });
+      paseDots.appendChild(dot);
+    });
+    document.getElementById("pasePrev").addEventListener("click", function () { showSlide(paseIndex - 1); armPase(); });
+    document.getElementById("paseNext").addEventListener("click", function () { showSlide(paseIndex + 1); armPase(); });
+    var pase = document.getElementById("plataforma");
+    pase.addEventListener("mouseenter", function () { window.clearInterval(paseTimer); });
+    pase.addEventListener("mouseleave", armPase);
+    pase.addEventListener("focusin", function () { window.clearInterval(paseTimer); });
+    pase.addEventListener("focusout", armPase);
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) window.clearInterval(paseTimer);
+      else armPase();
+    });
+    armPase();
+  }
+
   document.addEventListener("keydown", function (event) {
     if (event.key !== "Escape") return;
     if (!demo.hidden) closeDemo();
