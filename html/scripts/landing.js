@@ -89,6 +89,25 @@
     el.addEventListener("click", closeDemo);
   });
 
+  var dock = document.getElementById("dock");
+  var heroCta = document.querySelector(".hero-cta");
+  var closingCta = document.querySelector(".origin .cta-row");
+  if (dock && heroCta && "IntersectionObserver" in window) {
+    var heroGone = false;
+    var closingShown = false;
+    var dockIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.target === heroCta) heroGone = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+        else closingShown = entry.isIntersecting;
+      });
+      var on = heroGone && !closingShown;
+      dock.classList.toggle("is-on", on);
+      dock.inert = !on;
+    });
+    dockIo.observe(heroCta);
+    if (closingCta) dockIo.observe(closingCta);
+  }
+
   var slides = [
     { src: "assets/imagenes/18.png", alt: "Manos sobre una laptop con un calendario y una lista ilustrados.", label: "Agenda" },
     { src: "assets/imagenes/16.png", alt: "Profesional con bata frente a una laptop y marcas de verificación ilustradas.", label: "Cobro" },
