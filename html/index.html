@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/landing.css?v=14">
+  <link rel="stylesheet" href="css/landing.css?v=16">
 </head>
 <body>
   <a class="skip" href="#contenido">Saltar al contenido</a>
@@ -103,8 +103,8 @@
         <article class="tech-lead rise">
           <span class="tech-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
           <h3>Seguridad desde el diseño.</h3>
-          <p>Conexión cifrada, acceso con usuario y contraseña y la información de cada clínica separada de las demás. Profesionales de salud, recepción y administración entran a una vista propia de su día, y cada rol ve solo lo que le corresponde.</p>
-          <p>Las notas clínicas se sellan y ya no se pueden alterar.</p>
+          <p>Conexión cifrada, acceso con usuario y contraseña y la información de cada clínica separada de las demás.</p>
+          <p><a class="tech-link" href="#datos">Cómo cuidamos tus datos clínicos</a></p>
         </article>
         <div class="tech-side">
           <article class="tech-item rise">
@@ -116,6 +116,23 @@
             <div><h3>Panel a tu medida.</h3><p>Añade tus servicios y productos, tus horarios, tus formas de pago y la plantilla de receta con tus datos profesionales.</p></div>
           </article>
         </div>
+      </div>
+    </section>
+
+    <section class="sheet datos" id="datos" aria-labelledby="datos-title">
+      <div class="datos-intro rise">
+        <h2 class="display" id="datos-title">Tus datos clínicos, bajo tu control.</h2>
+        <p class="lede">Owame está diseñado para que cada práctica opere en su propio espacio, con usuarios y permisos definidos por su equipo. La información de pacientes merece procesos claros, acceso responsable y mejora continua.</p>
+      </div>
+      <dl class="datos-list rise">
+        <div><dt>Un espacio por práctica.</dt><dd>Cada clínica tiene su propio espacio y su información no se mezcla con la de otras.</dd></div>
+        <div><dt>Accesos por usuario y rol.</dt><dd>Profesionales de salud, recepción y administración entran con su propia cuenta, y cada rol ve solo lo que le corresponde.</dd></div>
+        <div><dt>Notas que no se alteran.</dt><dd>Al sellar una nota clínica queda fija, con fecha, hora y nombre de quien la firmó.</dd></div>
+        <div><dt>Tu información sale contigo.</dt><dd>Exporta tu lista de pacientes y tus tablas financieras cuando las necesites.</dd></div>
+      </dl>
+      <div class="datos-foot">
+        <p>Owame no se presenta como certificado ni como sustituto de las obligaciones normativas del profesional o de la clínica, como la NOM-004 o la NOM-024. Cualquier afirmación normativa se publicará sólo cuando exista evidencia verificable de su alcance.</p>
+        <p>Antes de contratar, revisamos contigo las condiciones de uso, privacidad y accesos. <a href="aviso-privacidad.html">Lee el aviso de privacidad</a>.</p>
       </div>
     </section>
 
@@ -179,6 +196,7 @@
           <a href="#caracteristicas">Características</a>
           <a href="#precios">Precios</a>
           <a href="#origen">Origen</a>
+          <a href="aviso-privacidad.html">Aviso de privacidad</a>
           <a class="mail" href="mailto:contacto@newachi.mx">contacto@newachi.mx</a>
         </nav>
       </div>
@@ -232,9 +250,9 @@
         </div>
         <label class="field"><span>Nombre</span><input name="nombre" type="text" required maxlength="200" autocomplete="name"></label>
         <label class="field"><span>Correo</span><input name="email" type="email" required maxlength="255" autocomplete="email"></label>
-        <label class="field"><span>Teléfono</span><input name="telefono" type="tel" maxlength="40" autocomplete="tel" placeholder="+52…"></label>
+        <label class="field"><span>Teléfono <i class="opt">opcional</i></span><input name="telefono" type="tel" maxlength="40" autocomplete="tel" placeholder="+52…"></label>
         <label class="field">
-          <span>Tu rol</span>
+          <span>Tu rol <i class="opt">opcional</i></span>
           <select name="rol">
             <option value="">Selecciona…</option>
             <option value="dueno">Dueño / director</option>
@@ -243,10 +261,10 @@
             <option value="otro">Otro</option>
           </select>
         </label>
-        <label class="field"><span>Nombre de la clínica</span><input name="nombreClinica" type="text" maxlength="200" autocomplete="organization"></label>
+        <label class="field"><span>Nombre de la clínica <i class="opt">opcional</i></span><input name="nombreClinica" type="text" maxlength="200" autocomplete="organization"></label>
         <label class="consent">
           <input name="consentPrivacy" type="checkbox" required>
-          <span>Acepto que usen mi nombre y correo solo para agendar esta demo.</span>
+          <span>Acepto el <a href="aviso-privacidad.html" target="_blank" rel="noopener">aviso de privacidad</a>. Usaremos estos datos sólo para abrir tu demo y entender si Owame es adecuado para tu práctica.</span>
         </label>
         <button class="pill" type="submit">Enviar solicitud</button>
         <p class="form-status" id="demoStatus" role="status"></p>
