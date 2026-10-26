@@ -109,11 +109,11 @@
   }
 
   var slides = [
-    { src: "assets/imagenes/18.png", alt: "Manos sobre una laptop con un calendario y una lista ilustrados.", label: "Agenda" },
-    { src: "assets/imagenes/16.png", alt: "Profesional con bata frente a una laptop y marcas de verificación ilustradas.", label: "Cobro" },
-    { src: "assets/imagenes/15.png", alt: "Profesional con bata señalando iconos clínicos ilustrados.", label: "Administración clínica" },
-    { src: "assets/imagenes/2.png", alt: "Persona con un teléfono y una laptop, con un gráfico de asistencia ilustrado.", label: "Recetas" },
-    { src: "assets/imagenes/11.png", alt: "Profesional en consulta señalando un panel de signos ilustrado, con laptop y tableta.", label: "Expediente clínico digital" }
+    { src: "assets/imagenes/producto/producto-agenda.webp", alt: "Vista semanal de la agenda de Owame con las citas de lunes a viernes.", label: "Agenda" },
+    { src: "assets/imagenes/producto/producto-expediente.webp", alt: "Nota clínica SOAP en Owame, lista para sellar.", label: "Expediente clínico digital" },
+    { src: "assets/imagenes/producto/producto-diagnostico.webp", alt: "Evaluación clínica en Owame con diagnóstico CIE-10 e indicaciones para el paciente.", label: "Diagnóstico CIE-10 e indicaciones" },
+    { src: "assets/imagenes/producto/producto-cobro.webp", alt: "Carrito de cobro de Owame con dos sesiones y un total de $1,150.", label: "Cobro" },
+    { src: "assets/imagenes/producto/producto-inicio.webp", alt: "Inicio de Owame con accesos a pacientes, agenda, cobro, caja y expediente.", label: "Administración clínica" }
   ];
   var paseImg = document.getElementById("paseImg");
   var paseCap = document.getElementById("paseCap");
