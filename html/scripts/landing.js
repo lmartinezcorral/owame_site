@@ -125,6 +125,7 @@
     var slide = slides[paseIndex];
     paseImg.src = slide.src;
     paseImg.alt = slide.alt;
+    new Image().src = slides[(paseIndex + 1) % slides.length].src;
     if (paseCap) paseCap.textContent = slide.label;
     if (!paseDots) return;
     paseDots.querySelectorAll("button").forEach(function (dot, n) {
@@ -173,6 +174,7 @@
       if (document.hidden) window.clearInterval(paseTimer);
       else armPase();
     });
+    new Image().src = slides[1].src;
     armPase();
   }
 
