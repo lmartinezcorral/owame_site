@@ -45,24 +45,8 @@ ul { list-style: none; }
 main { width: 100%; overflow-x: clip; padding: 0.5rem; }
 @media (min-width: 640px) { main { padding: 0.75rem; } }
 
-.clip { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: 0.12em; margin-bottom: -0.12em; }
-.clip-inner { display: block; }
-.stack .clip { display: block; }
-html.js .clip-inner { transform: translateY(115%); }
-html.js.is-ready .hero .clip-inner { animation: clip-in 0.8s var(--ease) forwards; }
-html.js.is-ready .hero-title .clip:nth-child(2) .clip-inner { animation-delay: 0.08s; }
-html.js.is-ready .hero-title .clip:nth-child(3) .clip-inner { animation-delay: 0.16s; }
-html.js.is-ready .hero-title .clip:nth-child(4) .clip-inner { animation-delay: 0.24s; }
-html.js.is-ready .tagline li:nth-child(1) .clip-inner { animation-delay: 0.32s; }
-html.js.is-ready .tagline li:nth-child(2) .clip-inner { animation-delay: 0.4s; }
-html.js.is-ready .tagline li:nth-child(3) .clip-inner { animation-delay: 0.48s; }
-html.js.is-ready .tagline li:nth-child(4) .clip-inner { animation-delay: 0.56s; }
-html.js.is-ready .tagline li:nth-child(5) .clip-inner { animation-delay: 0.64s; }
 html.js .hero-copy { opacity: 0; }
 html.js.is-ready .hero-copy { animation: fade-up 0.7s var(--ease) 0.2s forwards; }
-html.js .hero-gloss { opacity: 0; }
-html.js.is-ready .hero-gloss { animation: fade-up 0.7s var(--ease) 0.35s forwards; }
-@keyframes clip-in { to { transform: none; } }
 @keyframes fade-up { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 
 .rise { opacity: 0; transform: translateY(16px); }
@@ -92,11 +76,9 @@ h2, .display {
   transition: background 0.2s ease, transform 0.2s ease;
 }
 .pill.light { background: var(--cream); color: var(--petrol); }
-.pill.ghost { background: transparent; color: var(--cream); border: 1px solid rgba(255, 255, 255, 0.45); }
 @media (hover: hover) {
   .pill:hover { background: #243e45; }
-  .pill.light:hover { background: var(--white); }
-  .pill.ghost:hover { background: rgba(255, 255, 255, 0.12); }
+  .pill.light:hover { background: var(--mist); }
 }
 
 #loader {
@@ -186,19 +168,14 @@ h2, .display {
 @media (min-width: 640px) {
   .hero-title { padding: 1.5rem 2.25rem 0; }
 }
-.hero-gloss,
 .hero-copy {
   position: relative; z-index: 1;
   margin: 0.85rem 1.25rem 0;
   max-width: 38rem;
   color: var(--cream);
+  font-size: clamp(1.15rem, 1rem + 0.5vw, 1.45rem); font-weight: 400; line-height: 1.45;
 }
-.hero-gloss { font-size: 1rem; font-weight: 600; line-height: 1.45; }
-.hero-copy { font-size: clamp(1.15rem, 1rem + 0.5vw, 1.45rem); font-weight: 400; line-height: 1.45; }
-@media (min-width: 640px) {
-  .hero-gloss, .hero-copy { margin-left: 2.25rem; }
-  .hero-gloss { font-size: 1.35rem; }
-}
+@media (min-width: 640px) { .hero-copy { margin-left: 2.25rem; } }
 .hero-cta {
   position: relative; z-index: 1;
   display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem;
@@ -229,8 +206,6 @@ html.js.is-ready .hero-cta { animation: fade-up 0.7s var(--ease) 0.3s forwards; 
 }
 .hero-proof strong { display: block; font-weight: 600; }
 @media (min-width: 640px) { .hero-proof { font-size: max(1.1rem, 15px); } }
-.tagline { font-size: 1.05rem; font-weight: 600; line-height: 1.35; color: rgba(255, 255, 255, 0.92); }
-@media (min-width: 640px) { .tagline { font-size: 1.45rem; } }
 
 .sr-only {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
@@ -323,24 +298,13 @@ html.js.is-ready .hero-cta { animation: fade-up 0.7s var(--ease) 0.3s forwards; 
 .svc-list li + li { border-top: 1px solid var(--mist); }
 .svc-row {
   display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
-  width: 100%; padding: 1.35rem 0.75rem; border-radius: 1.25rem;
-  transition: background 0.4s var(--ease), padding 0.4s var(--ease);
+  width: 100%; padding: 1.35rem 0.75rem;
 }
 .idx { width: 2.5rem; flex: none; font-size: 0.95rem; font-weight: 600; color: var(--muted); }
 .svc-row h3 { flex: 1 1 12rem; font-size: clamp(1.35rem, 1rem + 1vw, 1.75rem); font-weight: 600; letter-spacing: -0.02em; color: var(--petrol); }
 .svc-row .desc { flex: 1 1 16rem; max-width: 28rem; color: var(--muted); font-size: 0.95rem; }
-.nudge {
-  width: 2.75rem; height: 2.75rem; border-radius: 999px; flex: none;
-  display: grid; place-items: center; background: var(--petrol); color: var(--white);
-  transition: transform 0.35s var(--ease);
-}
-.nudge svg { width: 1.1rem; height: 1.1rem; }
 @media (min-width: 640px) {
   .svc-row { gap: 1.5rem; padding-block: 1.85rem; }
-}
-@media (hover: hover) and (min-width: 769px) {
-  .svc-row:hover { background: rgba(44, 74, 82, 0.06); padding-left: 1.5rem; }
-  .svc-row:hover .nudge { transform: translateX(6px); }
 }
 
 .tech-grid { margin-top: 2.5rem; display: grid; gap: 1.5rem; }
@@ -490,6 +454,7 @@ html.js.is-ready .hero-cta { animation: fade-up 0.7s var(--ease) 0.3s forwards; 
   width: 2.75rem; height: 2.75rem; border-radius: 999px;
   display: grid; place-items: center; background: rgba(255, 255, 255, 0.15); color: var(--cream);
 }
+.icon-btn.light { background: var(--mist); color: var(--petrol); }
 
 .overlay {
   position: fixed; inset: 0; z-index: 90;
@@ -529,6 +494,6 @@ html.js.is-ready .hero-cta { animation: fade-up 0.7s var(--ease) 0.3s forwards; 
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .clip-inner, .hero-gloss, .hero-copy, .hero-cta, .rise, .pase-frame img, .svc-wash, .origin, .origin::before { transform: none !important; opacity: 1 !important; animation: none !important; transition: none !important; }
+  .hero-copy, .hero-cta, .rise, .pase-frame img, .svc-wash, .origin, .origin::before { transform: none !important; opacity: 1 !important; animation: none !important; transition: none !important; }
   .menu-back, .menu-panel, .backdrop, .modal-panel, .dock, #loader { transition: none; }
 }
