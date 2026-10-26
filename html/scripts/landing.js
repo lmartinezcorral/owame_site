@@ -40,11 +40,28 @@
     document.querySelectorAll(".rise").forEach(function (el) { el.classList.add("is-in"); });
   }
 
+  var locked = [];
+  function lockPage(keep) {
+    unlockPage();
+    Array.prototype.forEach.call(document.body.children, function (el) {
+      if (el === keep || el.tagName === "SCRIPT") return;
+      locked.push({ el: el, inert: el.inert });
+      el.inert = true;
+    });
+    document.documentElement.classList.add("is-locked");
+  }
+  function unlockPage() {
+    locked.forEach(function (item) { item.el.inert = item.inert; });
+    locked = [];
+    document.documentElement.classList.remove("is-locked");
+  }
+
   function openMenu() {
     if (!menu) return;
     menu.hidden = false;
     menu.classList.add("open");
     burger.setAttribute("aria-expanded", "true");
+    lockPage(menu);
     document.getElementById("menuClose").focus();
   }
   function closeMenu() {
@@ -52,6 +69,7 @@
     menu.classList.remove("open");
     burger.setAttribute("aria-expanded", "false");
     window.setTimeout(function () { menu.hidden = true; }, reduce ? 0 : 280);
+    unlockPage();
     burger.focus();
   }
   burger.addEventListener("click", openMenu);
@@ -67,12 +85,14 @@
     closeMenu();
     demo.hidden = false;
     demo.classList.add("open");
+    lockPage(demo);
     var nameField = form.querySelector("[name=nombre]");
     if (nameField) nameField.focus();
   }
   function closeDemo() {
     demo.classList.remove("open");
     window.setTimeout(function () { demo.hidden = true; }, reduce ? 0 : 280);
+    unlockPage();
     if (lastFocus && lastFocus.focus) lastFocus.focus();
   }
   document.querySelectorAll("[data-open-demo]").forEach(function (el) {
