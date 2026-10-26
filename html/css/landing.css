@@ -378,6 +378,14 @@ html.js.is-ready .hero-cta { animation: fade-up 0.7s var(--ease) 0.3s forwards; 
 .amount small { font-size: 0.9rem; font-weight: 600; margin-left: 0.15rem; }
 .price ul { display: flex; flex-direction: column; gap: 0.4rem; color: var(--ink); font-size: 0.9rem; }
 .price .pill { margin-top: auto; align-self: flex-start; }
+.price ul li { padding-left: 1.1rem; position: relative; }
+.price ul li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 0.45rem; height: 0.45rem; border-radius: 999px; background: var(--teal); }
+.price.is-featured { position: relative; border: 2px solid var(--petrol); }
+.price .badge {
+  position: absolute; top: 0; left: 1.5rem; transform: translateY(-50%);
+  padding: 0.2rem 0.7rem; border-radius: 999px;
+  background: var(--petrol); color: var(--white); font-size: 0.8rem; font-weight: 600;
+}
 
 .origin {
   position: relative; overflow: hidden;
