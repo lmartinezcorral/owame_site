@@ -22,9 +22,9 @@
   } else {
     fill.animate(
       [{ transform: "scaleX(0)" }, { transform: "scaleX(1)" }],
-      { duration: 900, easing: "cubic-bezier(0.19, 1, 0.22, 1)", fill: "forwards" }
+      { duration: 380, easing: "cubic-bezier(0.19, 1, 0.22, 1)", fill: "forwards" }
     );
-    window.setTimeout(ready, 1100);
+    window.setTimeout(ready, 450);
   }
 
   if ("IntersectionObserver" in window) {
@@ -169,9 +169,11 @@
     paseImg.classList.add("is-out");
     paseWait = window.setTimeout(apply, 280);
   }
+  var pasePaused = false;
+  var paseVisible = true;
   function armPase() {
     window.clearInterval(paseTimer);
-    if (reduce || !paseImg) return;
+    if (reduce || !paseImg || pasePaused || !paseVisible || document.hidden) return;
     paseTimer = window.setInterval(function () { showSlide(paseIndex + 1); }, 4200);
   }
   if (paseDots && paseImg) {
@@ -190,10 +192,23 @@
     pase.addEventListener("mouseleave", armPase);
     pase.addEventListener("focusin", function () { window.clearInterval(paseTimer); });
     pase.addEventListener("focusout", armPase);
-    document.addEventListener("visibilitychange", function () {
-      if (document.hidden) window.clearInterval(paseTimer);
-      else armPase();
-    });
+    document.addEventListener("visibilitychange", armPase);
+    var pauseBtn = document.getElementById("pasePause");
+    if (reduce) {
+      pauseBtn.hidden = true;
+    } else {
+      pauseBtn.addEventListener("click", function () {
+        pasePaused = !pasePaused;
+        pauseBtn.setAttribute("aria-pressed", String(pasePaused));
+        armPase();
+      });
+    }
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        paseVisible = entries[0].isIntersecting;
+        armPase();
+      }, { threshold: 0.25 }).observe(pase);
+    }
     new Image().src = slides[1].src;
     armPase();
   }

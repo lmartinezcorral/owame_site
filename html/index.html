@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/landing.css?v=24">
+  <link rel="stylesheet" href="css/landing.css?v=25">
 </head>
 <body>
   <a class="skip" href="#contenido">Saltar al contenido</a>
@@ -75,9 +75,14 @@
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <div class="pase-dots" id="paseDots"></div>
-        <button type="button" class="arrow-btn solid" id="paseNext" aria-label="Siguiente">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
+        <div class="pase-end">
+          <button type="button" class="arrow-btn outline" id="pasePause" aria-pressed="false" aria-label="Pausar carrusel">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path class="ico-pause" d="M9 6v12M15 6v12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path class="ico-play" d="M8 6l10 6-10 6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          </button>
+          <button type="button" class="arrow-btn solid" id="paseNext" aria-label="Siguiente">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
       </div>
     </section>
 
@@ -191,28 +196,29 @@
       </div>
     </section>
 
-    <footer class="footer">
-      <div class="foot">
-        <a class="brand" href="#top">
-          <img src="assets/imagenes/logo-owame-480.webp" alt="Owame" width="480" height="96" loading="lazy">
-        </a>
-        <nav aria-label="Pie">
-          <a href="#caracteristicas">Características</a>
-          <a href="#precios">Precios</a>
-          <a href="#origen">Origen</a>
-          <a href="aviso-privacidad.html">Aviso de privacidad</a>
-          <a class="mail" href="mailto:contacto@newachi.mx">contacto@newachi.mx</a>
-        </nav>
-      </div>
-      <p class="fine">Owame, un producto de newachi. Software de gestión clínica en México.</p>
-    </footer>
   </main>
+
+  <footer class="footer">
+    <div class="foot">
+      <a class="brand" href="#top">
+        <img src="assets/imagenes/logo-owame-480.webp" alt="Owame" width="480" height="96" loading="lazy">
+      </a>
+      <nav aria-label="Pie">
+        <a href="#caracteristicas">Características</a>
+        <a href="#precios">Precios</a>
+        <a href="#origen">Origen</a>
+        <a href="aviso-privacidad.html">Aviso de privacidad</a>
+        <a class="mail" href="mailto:contacto@newachi.mx">contacto@newachi.mx</a>
+      </nav>
+    </div>
+    <p class="fine">Owame, un producto de newachi. Software de gestión clínica en México.</p>
+  </footer>
 
   <div class="dock" id="dock" inert>
     <button type="button" class="pill" data-open-demo>Probar demo</button>
   </div>
 
-  <div class="menu" id="menu" hidden>
+  <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menú" hidden>
     <div class="menu-back"></div>
     <div class="menu-panel">
       <div class="menu-top">
@@ -276,6 +282,6 @@
     </div>
   </div>
 
-  <script src="scripts/landing.js?v=10"></script>
+  <script src="scripts/landing.js?v=11"></script>
 </body>
 </html>
