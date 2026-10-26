@@ -184,6 +184,27 @@
     else if (!menu.hidden) closeMenu();
   });
 
+  function setStatus(text, isError) {
+    status.textContent = text;
+    status.classList.toggle("is-error", !!isError);
+  }
+  function leadError(result) {
+    var fields = result.body && result.body.details && result.body.details.fieldErrors;
+    if (result.status === 0) {
+      return { text: "No pudimos conectar con Owame. Revisa tu internet e intenta de nuevo." };
+    }
+    if (result.status === 429) {
+      return { text: "Hiciste varios intentos seguidos. Espera unos minutos e intenta de nuevo." };
+    }
+    if (result.status === 400) {
+      if (fields && fields.email) return { text: "Revisa tu correo: parece incompleto.", field: "email" };
+      if (fields && fields.nombre) return { text: "Escribe tu nombre para continuar.", field: "nombre" };
+      var apiMsg = result.body && result.body.error;
+      return { text: apiMsg && apiMsg !== "Datos inválidos" ? apiMsg : "Revisa los datos del formulario e intenta de nuevo." };
+    }
+    return { text: "No pudimos registrar tu solicitud por un problema de nuestro lado. Intenta en unos minutos o escríbenos a contacto@newachi.mx." };
+  }
+
   form.addEventListener("submit", function (event) {
     event.preventDefault();
     var data = new FormData(form);
@@ -204,16 +225,20 @@
     if (clinica) payload.nombreClinica = clinica;
     var button = form.querySelector("button[type=submit]");
     if (button) button.disabled = true;
-    status.textContent = "Registrando la solicitud…";
+    setStatus("Registrando la solicitud…", false);
     fetch("/api/v1/public/leads", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
     })
       .then(function (res) {
-        return res.json().then(function (body) {
-          return { ok: res.ok, status: res.status, body: body };
+        return res.text().then(function (text) {
+          var body = null;
+          try { body = text ? JSON.parse(text) : null; } catch (e) { body = null; }
+          return { status: res.status, body: body };
         });
+      }, function () {
+        return { status: 0, body: null };
       })
       .then(function (result) {
         if (result.status === 201 || result.status === 409) {
@@ -223,13 +248,10 @@
           window.location.href = dest;
           return;
         }
-        var msg = (result.body && result.body.error) || "No pudimos registrar tu solicitud. Intenta de nuevo.";
-        status.textContent = msg;
+        var err = leadError(result);
+        setStatus(err.text, true);
         if (button) button.disabled = false;
-      })
-      .catch(function () {
-        status.textContent = "No pudimos registrar tu solicitud. Revisa tu conexión e intenta de nuevo.";
-        if (button) button.disabled = false;
+        if (err.field && form.elements[err.field]) form.elements[err.field].focus();
       });
   });
 })();

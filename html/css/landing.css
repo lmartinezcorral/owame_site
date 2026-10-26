@@ -524,7 +524,8 @@ html.js.is-ready .hero-cta { animation: fade-up 0.7s var(--ease) 0.3s forwards; 
 }
 .consent { display: flex; gap: 0.65rem; align-items: flex-start; font-size: 0.85rem; color: var(--ink); }
 .consent input { width: 1.15rem; height: 1.15rem; margin-top: 0.15rem; flex: none; }
-.form-status { font-size: 0.85rem; color: var(--teal-dark); }
+.form-status { font-size: 0.85rem; color: var(--muted); }
+.form-status.is-error { color: var(--coral-dark); font-weight: 600; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
