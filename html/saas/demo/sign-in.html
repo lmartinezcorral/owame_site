@@ -42,7 +42,7 @@
   <main>
     <h1>Ingresar a tu demo</h1>
     <p class="hint">Accede al entorno de prueba con el código que recibiste por correo.</p>
-    <form id="demoSignInForm">
+    <form id="demoSignInForm" data-dashboard-url="/app/dashboard.html">
       <p id="demoSignInAlert" class="err" hidden></p>
       <label for="demoSlug">Código de tu práctica demo</label>
       <input type="text" id="demoSlug" name="slug" required placeholder="demo-abc123" autocomplete="off" spellcheck="false">
@@ -59,67 +59,6 @@
   <footer>
     <p>Owame es software de gestión de newachi. No sustituye al profesional tratante.</p>
   </footer>
-  <script>
-  (function () {
-    var params = new URLSearchParams(window.location.search);
-    var slugEl = document.getElementById('demoSlug');
-    var emailEl = document.getElementById('demoEmail');
-    var passEl = document.getElementById('demoPassword');
-    var form = document.getElementById('demoSignInForm');
-    var alertEl = document.getElementById('demoSignInAlert');
-    var btn = document.getElementById('demoSignInBtn');
-    var slugFromUrl = (params.get('slug') || '').trim();
-    var emailFromUrl = (params.get('email') || '').trim();
-    if (slugFromUrl) slugEl.value = slugFromUrl;
-    if (emailFromUrl) emailEl.value = emailFromUrl;
-
-    function showError(text) {
-      alertEl.hidden = false;
-      alertEl.textContent = text;
-    }
-
-    form.addEventListener('submit', function (ev) {
-      ev.preventDefault();
-      alertEl.hidden = true;
-      btn.disabled = true;
-      var slug = String(slugEl.value || '').trim().toLowerCase();
-      var email = String(emailEl.value || '').trim();
-      var password = String(passEl.value || '');
-      fetch('/api/v1/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ tenantSlug: slug, email: email, password: password })
-      })
-        .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
-        .then(function (res) {
-          if (!res.ok || !res.data.accessToken) {
-            showError(res.data.error || 'No pudimos iniciar sesión. Revisa código, correo y contraseña.');
-            return;
-          }
-          var json = res.data;
-          var u = json.user || {};
-          localStorage.setItem('MOBILITY_ACCESS_TOKEN', json.accessToken);
-          localStorage.setItem('MOBILITY_REFRESH_TOKEN', json.refreshToken);
-          localStorage.setItem('MOBILITY_TENANT_ID', u.tenantId || '');
-          localStorage.setItem('MOBILITY_USER_ID', u.id || '');
-          localStorage.setItem('MOBILITY_USER_ROL', u.rolActivo || u.rol || '');
-          localStorage.setItem('MOBILITY_USER_ROLES', JSON.stringify(u.roles || []));
-          localStorage.setItem('MOBILITY_USER_ROLES_ACTIVE', u.rolActivo || u.rol || '');
-          localStorage.setItem('MOBILITY_USER_EMAIL', u.email || '');
-          localStorage.setItem('MOBILITY_USER_DISPLAY', ((u.nombre || '') + ' ' + (u.apellido || '')).trim());
-          localStorage.setItem('MOBILITY_TENANT_SLUG', slug);
-          localStorage.setItem('MOBILITY_TENANT_IS_DEMO', u.isDemo ? 'true' : 'false');
-          try { sessionStorage.removeItem('MOBILITY_SESSION_ENDED'); } catch (e) {}
-          window.location.replace('/app/dashboard.html');
-        })
-        .catch(function () {
-          showError('Error de conexión. Intenta de nuevo.');
-        })
-        .finally(function () {
-          btn.disabled = false;
-        });
-    });
-  })();
-  </script>
+  <script src="/app/assets/js/demoSignIn.js?v=qa-1027-15"></script>
 </body>
 </html>
