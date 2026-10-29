@@ -1,2 +1,8 @@
 User-agent: *
+Allow: /$
+Allow: /index.html
+Allow: /aviso-privacidad.html
+Allow: /condiciones-servicio.html
+Allow: /css/
+Allow: /assets/
 Disallow: /
